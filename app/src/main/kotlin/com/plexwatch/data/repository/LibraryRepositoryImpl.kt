@@ -1,7 +1,7 @@
 package com.plexwatch.data.repository
 
 import com.plexwatch.data.api.PlexMediaApi
-import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.TokenStorageInterface
 import com.plexwatch.domain.model.Album
 import com.plexwatch.domain.model.Artist
 import com.plexwatch.domain.model.LibraryType
@@ -21,7 +21,7 @@ class LibraryRepositoryImpl
     @Inject
     constructor(
         private val mediaApi: PlexMediaApi,
-        private val tokenStorage: TokenStorage,
+        private val tokenStorage: TokenStorageInterface,
         private val serverRepository: ServerRepository,
     ) : LibraryRepository {
         private val _libraries = MutableStateFlow<Map<String, List<PlexLibrary>>>(emptyMap())

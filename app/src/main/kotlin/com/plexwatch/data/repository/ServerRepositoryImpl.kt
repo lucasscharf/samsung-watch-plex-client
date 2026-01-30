@@ -1,7 +1,7 @@
 package com.plexwatch.data.repository
 
 import com.plexwatch.data.api.PlexServerApi
-import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.TokenStorageInterface
 import com.plexwatch.domain.model.PlexServer
 import com.plexwatch.domain.repository.ServerRepository
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class ServerRepositoryImpl
     @Inject
     constructor(
         private val serverApi: PlexServerApi,
-        private val tokenStorage: TokenStorage,
+        private val tokenStorage: TokenStorageInterface,
     ) : ServerRepository {
         private val _servers = MutableStateFlow<List<PlexServer>>(emptyList())
         private val _selectedServer = MutableStateFlow<PlexServer?>(null)

@@ -4,9 +4,8 @@ import app.cash.turbine.test
 import com.plexwatch.data.api.PlexServerApi
 import com.plexwatch.data.api.dto.ConnectionDto
 import com.plexwatch.data.api.dto.ResourcesResponse
-import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.FakeTokenStorage
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -16,14 +15,13 @@ import org.junit.Test
 
 class ServerRepositoryImplTest {
     private lateinit var serverApi: PlexServerApi
-    private lateinit var tokenStorage: TokenStorage
+    private lateinit var tokenStorage: FakeTokenStorage
     private lateinit var repository: ServerRepositoryImpl
 
     @Before
     fun setUp() {
         serverApi = mockk()
-        tokenStorage = mockk()
-        every { tokenStorage.getClientId() } returns "test-client-id"
+        tokenStorage = FakeTokenStorage()
         repository = ServerRepositoryImpl(serverApi, tokenStorage)
     }
 
@@ -57,7 +55,7 @@ class ServerRepositoryImplTest {
                             ),
                     ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { serverApi.getResources(any(), any(), any()) } returns resources
 
             val result = repository.refreshServers()
@@ -111,7 +109,7 @@ class ServerRepositoryImplTest {
                             ),
                     ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { serverApi.getResources(any(), any(), any()) } returns resources
 
             val result = repository.refreshServers()
@@ -151,7 +149,7 @@ class ServerRepositoryImplTest {
                             ),
                     ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { serverApi.getResources(any(), any(), any()) } returns resources
 
             val result = repository.refreshServers()
@@ -166,7 +164,7 @@ class ServerRepositoryImplTest {
     @Test
     fun `refreshServers fails when not authenticated`() =
         runTest {
-            every { tokenStorage.getAuthToken() } returns null
+            tokenStorage.setAuthToken(null)
 
             val result = repository.refreshServers()
 
@@ -187,7 +185,7 @@ class ServerRepositoryImplTest {
                         connections = null,
                     ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { serverApi.getResources(any(), any(), any()) } returns resources
 
             val result = repository.refreshServers()

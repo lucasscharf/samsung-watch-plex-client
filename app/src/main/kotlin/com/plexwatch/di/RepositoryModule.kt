@@ -1,5 +1,7 @@
 package com.plexwatch.di
 
+import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.TokenStorageInterface
 import com.plexwatch.data.repository.AuthRepositoryImpl
 import com.plexwatch.data.repository.LibraryRepositoryImpl
 import com.plexwatch.data.repository.ServerRepositoryImpl
@@ -26,4 +28,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindLibraryRepository(impl: LibraryRepositoryImpl): LibraryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindTokenStorage(impl: TokenStorage): TokenStorageInterface
 }

@@ -1,7 +1,7 @@
 package com.plexwatch.data.repository
 
 import com.plexwatch.data.api.PlexAuthApi
-import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.TokenStorageInterface
 import com.plexwatch.domain.model.PlexPin
 import com.plexwatch.domain.model.PlexUser
 import com.plexwatch.domain.repository.AuthRepository
@@ -15,7 +15,7 @@ class AuthRepositoryImpl
     @Inject
     constructor(
         private val authApi: PlexAuthApi,
-        private val tokenStorage: TokenStorage,
+        private val tokenStorage: TokenStorageInterface,
     ) : AuthRepository {
         override val isAuthenticated: Flow<Boolean> = tokenStorage.authToken.map { it != null }
 

@@ -15,7 +15,7 @@ class TokenStorage
     @Inject
     constructor(
         @ApplicationContext private val context: Context,
-    ) {
+    ) : TokenStorageInterface {
         private val masterKey =
             MasterKey.Builder(context)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -31,11 +31,11 @@ class TokenStorage
             )
 
         private val _authToken = MutableStateFlow(prefs.getString(KEY_AUTH_TOKEN, null))
-        val authToken: Flow<String?> = _authToken.asStateFlow()
+        override val authToken: Flow<String?> = _authToken.asStateFlow()
 
-        fun getAuthToken(): String? = prefs.getString(KEY_AUTH_TOKEN, null)
+        override fun getAuthToken(): String? = prefs.getString(KEY_AUTH_TOKEN, null)
 
-        fun setAuthToken(token: String?) {
+        override fun setAuthToken(token: String?) {
             prefs.edit().apply {
                 if (token != null) {
                     putString(KEY_AUTH_TOKEN, token)
@@ -46,9 +46,9 @@ class TokenStorage
             _authToken.value = token
         }
 
-        fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
+        override fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
 
-        fun setUserId(userId: String?) {
+        override fun setUserId(userId: String?) {
             prefs.edit().apply {
                 if (userId != null) {
                     putString(KEY_USER_ID, userId)
@@ -58,7 +58,7 @@ class TokenStorage
             }.apply()
         }
 
-        fun getClientId(): String {
+        override fun getClientId(): String {
             var clientId = prefs.getString(KEY_CLIENT_ID, null)
             if (clientId == null) {
                 clientId = java.util.UUID.randomUUID().toString()
@@ -67,7 +67,7 @@ class TokenStorage
             return clientId
         }
 
-        fun clear() {
+        override fun clear() {
             prefs.edit().clear().apply()
             _authToken.value = null
         }

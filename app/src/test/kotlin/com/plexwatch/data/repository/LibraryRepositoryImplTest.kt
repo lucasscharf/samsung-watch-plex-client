@@ -10,7 +10,7 @@ import com.plexwatch.data.api.dto.MediaContainerResponse
 import com.plexwatch.data.api.dto.MediaInfoDto
 import com.plexwatch.data.api.dto.MetadataDto
 import com.plexwatch.data.api.dto.PartDto
-import com.plexwatch.data.local.TokenStorage
+import com.plexwatch.data.local.FakeTokenStorage
 import com.plexwatch.domain.model.LibraryType
 import com.plexwatch.domain.repository.ServerRepository
 import com.plexwatch.util.TestFixtures
@@ -26,16 +26,15 @@ import org.junit.Test
 
 class LibraryRepositoryImplTest {
     private lateinit var mediaApi: PlexMediaApi
-    private lateinit var tokenStorage: TokenStorage
+    private lateinit var tokenStorage: FakeTokenStorage
     private lateinit var serverRepository: ServerRepository
     private lateinit var repository: LibraryRepositoryImpl
 
     @Before
     fun setUp() {
         mediaApi = mockk()
-        tokenStorage = mockk()
+        tokenStorage = FakeTokenStorage()
         serverRepository = mockk()
-        every { tokenStorage.getClientId() } returns "test-client-id"
         repository = LibraryRepositoryImpl(mediaApi, tokenStorage, serverRepository)
     }
 
@@ -75,7 +74,7 @@ class LibraryRepositoryImplTest {
                                 ),
                         ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { mediaApi.getLibrarySections(any(), any()) } returns response
 
             val result = repository.refreshLibraries("server-123")
@@ -109,7 +108,7 @@ class LibraryRepositoryImplTest {
                                 ),
                         ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { mediaApi.getLibrarySections(any(), any()) } returns response
 
             val result = repository.refreshLibraries("server-123")
@@ -138,7 +137,7 @@ class LibraryRepositoryImplTest {
                                 ),
                         ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { mediaApi.getLibrarySections(any(), any()) } returns response
 
             val result = repository.refreshLibraries("server-123")
@@ -175,7 +174,7 @@ class LibraryRepositoryImplTest {
                                 ),
                         ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { mediaApi.getLibraryContent("1", "test-token", type = 8, any()) } returns response
 
             val result = repository.getArtists("1")
@@ -198,7 +197,7 @@ class LibraryRepositoryImplTest {
             val track = TestFixtures.createTrack(mediaKey = "/library/parts/123/file.mp3")
 
             every { serverRepository.getSelectedServer() } returns flowOf(server)
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
 
             val result = repository.getStreamUrl(track)
 
@@ -212,7 +211,7 @@ class LibraryRepositoryImplTest {
     fun `getStreamUrl throws when no server selected`() =
         runTest {
             every { serverRepository.getSelectedServer() } returns flowOf(null)
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
 
             val track = TestFixtures.createTrack()
 
@@ -265,7 +264,7 @@ class LibraryRepositoryImplTest {
                                 ),
                         ),
                 )
-            every { tokenStorage.getAuthToken() } returns "test-token"
+            tokenStorage.setAuthToken("test-token")
             coEvery { mediaApi.getChildren("album-123", "test-token", any()) } returns response
 
             val result = repository.getAlbumTracks("album-123")
