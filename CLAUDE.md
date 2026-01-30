@@ -34,6 +34,10 @@ adb shell am start -n com.plexwatch.debug/com.plexwatch.presentation.MainActivit
 adb logcat | grep -i plexwatch
 ```
 
+## Development Workflow
+
+**IMPORTANTE:** Sempre execute `./gradlew ktlintFormat` antes de fazer build ou commit para garantir que o código esteja formatado corretamente.
+
 ## Architecture
 
 Clean Architecture with MVVM pattern:

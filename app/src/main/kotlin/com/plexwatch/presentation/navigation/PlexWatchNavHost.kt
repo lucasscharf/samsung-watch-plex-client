@@ -5,6 +5,7 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.plexwatch.presentation.ui.home.HomeScreen
+import com.plexwatch.presentation.ui.login.LoginScreen
 
 @Composable
 fun PlexWatchNavHost() {
@@ -26,7 +27,16 @@ fun PlexWatchNavHost() {
         }
 
         composable(Screen.Login.route) {
-            // LoginScreen - to be implemented
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Screen.Servers.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+            )
         }
 
         composable(Screen.Servers.route) {

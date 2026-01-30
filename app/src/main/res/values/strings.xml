@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PlexWatch</string>
+
+    <!-- Login Screen -->
+    <string name="login_generating_pin">Generating PIN…</string>
+    <string name="login_visit_plex">Visit</string>
+    <string name="login_expires_in">Expires in %1$d seconds</string>
+    <string name="login_success">Success!</string>
+    <string name="login_welcome">Welcome, %1$s</string>
+    <string name="login_expired">PIN expired</string>
+    <string name="login_retry">Try Again</string>
 </resources>

@@ -27,16 +27,16 @@
 - [x] HomeScreen com estado de autenticação
 - [x] HomeViewModel
 
+### Fase 2: Autenticação Plex
+- [x] Criar LoginScreen com exibição do PIN
+- [x] Criar LoginViewModel com polling do PIN
+- [x] Implementar fluxo completo: gerar PIN → mostrar código → polling → autenticado
+- [x] Adicionar tela de "Acesse plex.tv/link e digite o código"
+- [x] Tratar erros de autenticação
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 2: Autenticação Plex
-- [ ] Criar LoginScreen com exibição do PIN
-- [ ] Criar LoginViewModel com polling do PIN
-- [ ] Implementar fluxo completo: gerar PIN → mostrar código → polling → autenticado
-- [ ] Adicionar tela de "Acesse plex.tv/link e digite o código"
-- [ ] Tratar erros de autenticação
 
 ### Fase 3: Descoberta de Servidores e Navegação de Bibliotecas
 - [ ] Criar ServersScreen (lista de servidores disponíveis)
