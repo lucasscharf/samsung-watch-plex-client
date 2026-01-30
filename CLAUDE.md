@@ -9,29 +9,29 @@ PlexWatch - A Plex music client for Samsung Galaxy Watch (Wear OS). Allows users
 ## Build Commands
 
 ```bash
-# Build the project
+# Build with Docker (no Android SDK required)
+docker build -t android-build .
+docker run --rm -v "$(pwd)":/app android-build ./gradlew build --no-daemon
+
+# Build with local Android SDK
 ./gradlew build
 
 # Run unit tests
 ./gradlew test
 
-# Run a single test class
+# Run specific test class
 ./gradlew test --tests "com.plexwatch.domain.usecase.*"
 
-# Lint check (ktlint)
+# Lint check and auto-format
 ./gradlew ktlintCheck
-
-# Auto-format code
 ./gradlew ktlintFormat
 
-# Install debug APK to connected device/emulator
-./gradlew installDebug
+# Install on device/emulator
+adb install app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n com.plexwatch.debug/com.plexwatch.presentation.MainActivity
 
-# Build release APK
-./gradlew assembleRelease
-
-# Clean build
-./gradlew clean
+# View logs
+adb logcat | grep -i plexwatch
 ```
 
 ## Architecture
@@ -51,8 +51,7 @@ app/src/main/kotlin/com/plexwatch/
 │   └── usecase/             # Business logic (one class per operation)
 │
 ├── presentation/            # Presentation Layer
-│   ├── ui/                  # Compose screens (HomeScreen, etc.)
-│   ├── viewmodel/           # ViewModels
+│   ├── ui/                  # Compose screens
 │   ├── navigation/          # Navigation routes & NavHost
 │   └── theme/               # Colors, Typography
 │
@@ -61,7 +60,7 @@ app/src/main/kotlin/com/plexwatch/
 
 ## Key Dependencies
 
-- **UI**: Jetpack Compose for Wear OS + Horologist
+- **UI**: Jetpack Compose for Wear OS
 - **DI**: Hilt
 - **Network**: Retrofit + OkHttp + Moshi
 - **Media**: Media3 ExoPlayer
@@ -69,15 +68,17 @@ app/src/main/kotlin/com/plexwatch/
 
 ## Plex API
 
-- Authentication: PIN-based flow via plex.tv
+- Authentication: PIN-based flow via plex.tv (`POST plex.tv/pins.json` → poll `GET plex.tv/pins/{id}.json`)
 - Server discovery: `GET https://plex.tv/api/v2/resources`
 - Library browsing: `GET {server}/library/sections`
 - All requests require `X-Plex-Token` header
+- Artist type in Plex API: `type=8`
+- Default Plex server port: `32400`
 
-## SOLID Guidelines
+## Current Status
 
-- **S**: One use case per business operation
-- **O**: Interfaces for all repositories
-- **L**: Mock implementations for testing
-- **I**: Separate API interfaces (PlexAuthApi, PlexServerApi, PlexMediaApi)
-- **D**: Domain defines interfaces, data implements them
+**Implemented:** Project setup, Clean Architecture base, domain models, repository interfaces/implementations, Plex API clients, Hilt DI, HomeScreen with auth state.
+
+**Next:** LoginScreen (PIN flow), ServersScreen, LibrariesScreen, audio playback with ExoPlayer.
+
+See `todo.md` for detailed task list.
