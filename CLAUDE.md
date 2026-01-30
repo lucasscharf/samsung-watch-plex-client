@@ -9,12 +9,7 @@ PlexWatch - A Plex music client for Samsung Galaxy Watch (Wear OS). Allows users
 ## Build Commands
 
 ```bash
-# Build with Docker (no Android SDK required)
-# Uses named volume for Gradle cache to speed up subsequent builds
-docker build -t android-build .
-docker run --rm -v "$(pwd)":/app -v gradle-cache:/root/.gradle android-build ./gradlew build
-
-# Build with local Android SDK
+# Build
 ./gradlew build
 
 # Run unit tests
