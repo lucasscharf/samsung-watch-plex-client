@@ -37,15 +37,50 @@ export ANDROID_HOME=/path/to/Android/Sdk
 ./gradlew assembleDebug
 ```
 
-## Run
+## Testing on Device
 
-### Install on connected watch/emulator
+### Option 1: Wear OS Emulator
+
+1. Install [Android Studio](https://developer.android.com/studio)
+2. Open AVD Manager: **Tools → Device Manager → Create Device**
+3. Select **Wear OS → Wear OS Small Round → API 34**
+4. Start the emulator
+5. Install and run:
 
 ```bash
+# Install APK
+adb install app/build/outputs/apk/debug/app-debug.apk
+
+# Launch the app
+adb shell am start -n com.plexwatch.debug/com.plexwatch.presentation.MainActivity
+```
+
+### Option 2: Physical Samsung Galaxy Watch
+
+1. On watch: **Settings → About watch → Software version** → tap 5 times to enable Developer Mode
+2. **Settings → Developer options → ADB debugging → Enable**
+3. **Developer options → Debug over WiFi** → note the IP and port
+4. Connect and install:
+
+```bash
+# Connect to watch (replace with your watch IP)
+adb connect 192.168.1.100:5555
+
+# Install APK
 adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### Run tests
+### Debugging
+
+```bash
+# List connected devices
+adb devices
+
+# View app logs
+adb logcat | grep -i plexwatch
+```
+
+## Run Unit Tests
 
 ```bash
 ./gradlew test
