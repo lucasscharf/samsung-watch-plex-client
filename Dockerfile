@@ -28,5 +28,20 @@ RUN yes | sdkmanager --licenses && \
 # Set working directory
 WORKDIR /app
 
+# Copy Gradle configuration files for dependency caching
+COPY gradle/ gradle/
+COPY gradlew gradlew
+COPY gradle.properties gradle.properties
+COPY settings.gradle.kts settings.gradle.kts
+COPY build.gradle.kts build.gradle.kts
+COPY app/build.gradle.kts app/build.gradle.kts
+COPY gradle/libs.versions.toml gradle/libs.versions.toml
+
+# Pre-download dependencies (cached in image layer)
+# Clean up locks and project .gradle after to avoid conflicts when source is mounted
+RUN ./gradlew dependencies --no-daemon || true && \
+    find /root/.gradle -name "*.lock" -delete 2>/dev/null || true && \
+    rm -rf /app/.gradle
+
 # Default command
 CMD ["./gradlew", "build"]

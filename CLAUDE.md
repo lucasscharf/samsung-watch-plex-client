@@ -10,8 +10,9 @@ PlexWatch - A Plex music client for Samsung Galaxy Watch (Wear OS). Allows users
 
 ```bash
 # Build with Docker (no Android SDK required)
+# Uses named volume for Gradle cache to speed up subsequent builds
 docker build -t android-build .
-docker run --rm -v "$(pwd)":/app android-build ./gradlew build --no-daemon
+docker run --rm -v "$(pwd)":/app -v gradle-cache:/root/.gradle android-build ./gradlew build
 
 # Build with local Android SDK
 ./gradlew build
@@ -37,6 +38,12 @@ adb logcat | grep -i plexwatch
 ## Development Workflow
 
 **IMPORTANTE:** Sempre execute `./gradlew ktlintFormat` antes de fazer build ou commit para garantir que o código esteja formatado corretamente.
+
+**TESTES OBRIGATÓRIOS:** Todo código novo ou modificado deve incluir testes unitários ou de integração conforme a necessidade:
+- **Domain Layer (use cases):** Testes unitários obrigatórios com mocks dos repositórios
+- **Data Layer (repositories):** Testes de integração para validar comunicação com APIs
+- **Presentation Layer (ViewModels):** Testes unitários com mocks dos use cases
+- Execute `./gradlew test` para rodar todos os testes antes de fazer commit
 
 ## Architecture
 

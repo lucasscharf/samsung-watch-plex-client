@@ -36,6 +36,9 @@ securityCrypto = "1.1.0-alpha06"
 junit = "4.13.2"
 junitExt = "1.1.5"
 espresso = "3.5.1"
+mockk = "1.13.10"
+coroutinesTest = "1.8.0"
+turbine = "1.1.0"
 
 # Linting
 ktlint = "12.1.1"
@@ -91,6 +94,11 @@ security-crypto = { group = "androidx.security", name = "security-crypto", versi
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockk" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
