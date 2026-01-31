@@ -1,5 +1,5 @@
-# Dia 1 e 2
-Comecei a toda. Bati o limite 2 vezes.
+# Dia 1 (30/01/2026)
+Comecei a toda. Bati o limite 4 vezes.
 Todo o scafolding foi feito pelo cláudio.
 Tentei rodar por docker as coisas, mas deu ruim (o docker ficou muito mal feito sem cache).
 Descobri que havia um teste que dava timeout e deixava tudo mais lento (entre 10 e 20 minutos de lentidão).
@@ -33,3 +33,7 @@ Vou fazer mais documentos para guiar o claude seguindo a ideia:
 ├── 17_CONSTRAINTS.md
 ├── 18_ACCEPTANCE_CRITERIA.md
 └── 99_EXECUTION_INSTRUCTIONS.md
+
+Existe algo compilável e recebi instruções para colocar um simulador. O problema é que o código não funciona. Ele aparece uma tela com botão pedindo o pai e volta para o simulador.
+
+Provavelmente, o trabalho vai parar no meio da semana porque já estou quase batendo o limite semanal de tokens.
