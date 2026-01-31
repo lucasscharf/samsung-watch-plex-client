@@ -55,10 +55,11 @@ class AuthRepositoryImplTest {
                 PinResponse(
                     id = 12345L,
                     code = "ABCD",
+                    expiresIn = 1800,
                     expiresAt = null,
                     authToken = null,
                 )
-            coEvery { authApi.createPin(any(), any(), any()) } returns pinResponse
+            coEvery { authApi.createPin(any(), any(), any(), any()) } returns pinResponse
 
             val result = repository.createPin()
 
@@ -70,9 +71,36 @@ class AuthRepositoryImplTest {
         }
 
     @Test
+    fun `createPin calculates expiration from expiresIn`() =
+        runTest {
+            val expiresInSeconds = 600
+            val pinResponse =
+                PinResponse(
+                    id = 12345L,
+                    code = "ABCD",
+                    expiresIn = expiresInSeconds,
+                    expiresAt = null,
+                    authToken = null,
+                )
+            coEvery { authApi.createPin(any(), any(), any(), any()) } returns pinResponse
+
+            val beforeCall = System.currentTimeMillis()
+            val result = repository.createPin()
+            val afterCall = System.currentTimeMillis()
+
+            assertTrue(result.isSuccess)
+            val pin = result.getOrNull()
+            assertNotNull(pin)
+            val expectedMinExpiry = beforeCall + (expiresInSeconds * 1000L)
+            val expectedMaxExpiry = afterCall + (expiresInSeconds * 1000L)
+            assertTrue(pin!!.expiresAt >= expectedMinExpiry)
+            assertTrue(pin.expiresAt <= expectedMaxExpiry)
+        }
+
+    @Test
     fun `createPin returns failure on error`() =
         runTest {
-            coEvery { authApi.createPin(any(), any(), any()) } throws RuntimeException("Network error")
+            coEvery { authApi.createPin(any(), any(), any(), any()) } throws RuntimeException("Network error")
 
             val result = repository.createPin()
 
@@ -86,10 +114,11 @@ class AuthRepositoryImplTest {
                 PinResponse(
                     id = 12345L,
                     code = "ABCD",
+                    expiresIn = 1800,
                     expiresAt = null,
                     authToken = null,
                 )
-            coEvery { authApi.checkPin(12345L, any()) } returns pinResponse
+            coEvery { authApi.checkPin(12345L, any(), any()) } returns pinResponse
 
             val result = repository.checkPin(12345L)
 
@@ -104,6 +133,7 @@ class AuthRepositoryImplTest {
                 PinResponse(
                     id = 12345L,
                     code = "ABCD",
+                    expiresIn = 1800,
                     expiresAt = null,
                     authToken = "new-auth-token",
                 )
@@ -115,8 +145,8 @@ class AuthRepositoryImplTest {
                     email = "test@example.com",
                     thumb = null,
                 )
-            coEvery { authApi.checkPin(12345L, any()) } returns pinResponse
-            coEvery { authApi.getUser("new-auth-token", any()) } returns userResponse
+            coEvery { authApi.checkPin(12345L, any(), any()) } returns pinResponse
+            coEvery { authApi.getUser("new-auth-token", any(), any()) } returns userResponse
 
             val result = repository.checkPin(12345L)
 

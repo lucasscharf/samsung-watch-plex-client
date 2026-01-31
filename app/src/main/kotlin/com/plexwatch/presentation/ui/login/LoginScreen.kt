@@ -52,6 +52,7 @@ fun LoginScreen(
                     pinCode = state.pin.code,
                     remainingSeconds = state.remainingSeconds,
                     listState = listState,
+                    onCancel = onNavigateBack,
                 )
             }
             is LoginUiState.Authenticated -> {
@@ -105,6 +106,7 @@ private fun PinContent(
     pinCode: String,
     remainingSeconds: Int,
     listState: androidx.wear.compose.foundation.lazy.ScalingLazyListState,
+    onCancel: () -> Unit,
 ) {
     ScalingLazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -148,6 +150,14 @@ private fun PinContent(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onSurfaceVariant,
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+        item {
+            Button(onClick = onCancel) {
+                Text(stringResource(R.string.common_cancel))
+            }
         }
     }
 }

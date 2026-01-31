@@ -45,11 +45,10 @@ class AuthRepositoryImpl
                     authApi.createPin(
                         clientId = tokenStorage.getClientId(),
                     )
-                // 5 minutes default expiry
                 PlexPin(
                     id = response.id,
                     code = response.code,
-                    expiresAt = System.currentTimeMillis() + 300_000,
+                    expiresAt = System.currentTimeMillis() + (response.expiresIn * 1000L),
                 )
             }
 

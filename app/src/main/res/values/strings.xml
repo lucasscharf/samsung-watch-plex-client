@@ -4,6 +4,7 @@
 
     <!-- Common -->
     <string name="common_retry">Try Again</string>
+    <string name="common_cancel">Cancel</string>
 
     <!-- Login Screen -->
     <string name="login_generating_pin">Generating PIN…</string>

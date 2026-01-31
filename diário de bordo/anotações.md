@@ -37,3 +37,5 @@ Vou fazer mais documentos para guiar o claude seguindo a ideia:
 Existe algo compilável e recebi instruções para colocar um simulador. O problema é que o código não funciona. Ele aparece uma tela com botão pedindo o pai e volta para o simulador.
 
 Provavelmente, o trabalho vai parar no meio da semana porque já estou quase batendo o limite semanal de tokens.
+
+# Dia 2
