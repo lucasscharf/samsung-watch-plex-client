@@ -34,19 +34,19 @@
 - [x] Adicionar tela de "Acesse plex.tv/link e digite o código"
 - [x] Tratar erros de autenticação
 
+### Fase 3: Descoberta de Servidores e Navegação de Bibliotecas
+- [x] Criar ServersScreen (lista de servidores disponíveis)
+- [x] Criar ServersViewModel
+- [x] Criar LibrariesScreen (lista de bibliotecas de música)
+- [x] Criar ArtistsScreen (lista de artistas)
+- [x] Criar AlbumsScreen (álbuns de um artista)
+- [x] Criar TracksScreen (faixas de um álbum)
+- [x] Implementar navegação com rotary input (coroa do relógio)
+- [x] Adicionar loading states e tratamento de erros
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 3: Descoberta de Servidores e Navegação de Bibliotecas
-- [ ] Criar ServersScreen (lista de servidores disponíveis)
-- [ ] Criar ServersViewModel
-- [ ] Criar LibrariesScreen (lista de bibliotecas de música)
-- [ ] Criar ArtistsScreen (lista de artistas)
-- [ ] Criar AlbumsScreen (álbuns de um artista)
-- [ ] Criar TracksScreen (faixas de um álbum)
-- [ ] Implementar navegação com rotary input (coroa do relógio)
-- [ ] Adicionar loading states e tratamento de erros
 
 ### Fase 4: Reprodução de Áudio
 - [ ] Criar PlaybackRepositoryImpl com ExoPlayer
