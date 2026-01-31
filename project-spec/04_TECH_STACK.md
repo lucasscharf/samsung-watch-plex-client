@@ -416,23 +416,6 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ```
 
-### Docker Build
-
-```dockerfile
-FROM openjdk:17-slim
-# Android SDK setup
-# Gradle cache optimization
-```
-
-**Comandos:**
-```bash
-docker build -t android-build .
-docker run --rm \
-    -v "$(pwd)":/app \
-    -v gradle-cache:/root/.gradle \
-    android-build ./gradlew build
-```
-
 ---
 
 ## Dependências Completas

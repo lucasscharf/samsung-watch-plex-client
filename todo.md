@@ -71,10 +71,6 @@
 - [ ] Testes de integração para repositórios
 - [ ] Testes de UI com Compose Testing
 
-### DevOps
-- [ ] CI/CD com GitHub Actions
-- [ ] Assinatura do APK release
-
 ---
 
 ## Bugs Conhecidos 🐛

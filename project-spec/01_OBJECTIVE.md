@@ -68,7 +68,6 @@ Criar um aplicativo funcional para Wear OS que permita **navegar e reproduzir m�
 - [x] Estrutura Clean Architecture
 - [x] Configuração de dependências
 - [x] Módulos Hilt
-- [x] Build com Docker
 - [x] ktlint configurado
 
 ### Fase 2 - Autenticação ✅

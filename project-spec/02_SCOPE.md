@@ -98,7 +98,6 @@
 
 - Estrutura Clean Architecture
 - Dependências configuradas
-- Build Docker funcional
 - Testes configurados
 
 ### Fase 2 - Autenticação ✅

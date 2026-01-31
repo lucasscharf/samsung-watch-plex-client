@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">PlexWatch</string>
 
+    <!-- Common -->
+    <string name="common_retry">Try Again</string>
+
     <!-- Login Screen -->
     <string name="login_generating_pin">Generating PIN…</string>
     <string name="login_visit_plex">Visit</string>
@@ -10,4 +13,39 @@
     <string name="login_welcome">Welcome, %1$s</string>
     <string name="login_expired">PIN expired</string>
     <string name="login_retry">Try Again</string>
+
+    <!-- Servers Screen -->
+    <string name="servers_title">Servers</string>
+    <string name="servers_loading">Loading servers…</string>
+    <string name="servers_local">Local</string>
+    <string name="servers_remote">Remote</string>
+
+    <!-- Libraries Screen -->
+    <string name="libraries_title">Libraries</string>
+    <string name="libraries_loading">Loading libraries…</string>
+    <string name="libraries_music_type">Music</string>
+    <string name="libraries_no_music">No music libraries found</string>
+
+    <!-- Artists Screen -->
+    <string name="artists_title">Artists</string>
+    <string name="artists_loading">Loading artists…</string>
+    <string name="artists_empty">No artists found</string>
+    <plurals name="artists_album_count">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+
+    <!-- Albums Screen -->
+    <string name="albums_title">Albums</string>
+    <string name="albums_loading">Loading albums…</string>
+    <string name="albums_empty">No albums found</string>
+    <plurals name="albums_track_count">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
+
+    <!-- Tracks Screen -->
+    <string name="tracks_title">Tracks</string>
+    <string name="tracks_loading">Loading tracks…</string>
+    <string name="tracks_empty">No tracks found</string>
 </resources>
