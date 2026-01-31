@@ -44,18 +44,18 @@
 - [x] Implementar navegação com rotary input (coroa do relógio)
 - [x] Adicionar loading states e tratamento de erros
 
+### Fase 4: Reprodução de Áudio
+- [x] Criar PlaybackRepositoryImpl com ExoPlayer
+- [x] Criar PlaybackService (foreground service)
+- [x] Criar NowPlayingScreen com controles (play/pause, próxima, anterior)
+- [x] Mostrar artwork do álbum
+- [x] Implementar barra de progresso
+- [x] Suportar reprodução em background
+- [x] Adicionar notificação de mídia
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 4: Reprodução de Áudio
-- [ ] Criar PlaybackRepositoryImpl com ExoPlayer
-- [ ] Criar PlaybackService (foreground service)
-- [ ] Criar NowPlayingScreen com controles (play/pause, próxima, anterior)
-- [ ] Mostrar artwork do álbum
-- [ ] Implementar barra de progresso
-- [ ] Suportar reprodução em background
-- [ ] Adicionar notificação de mídia
 
 ### Fase 5: Polimento e Features do Watch
 - [ ] Navegação com rotary bezel/crown

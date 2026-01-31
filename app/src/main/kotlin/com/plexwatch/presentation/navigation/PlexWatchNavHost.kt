@@ -9,6 +9,7 @@ import com.plexwatch.presentation.ui.artists.ArtistsScreen
 import com.plexwatch.presentation.ui.home.HomeScreen
 import com.plexwatch.presentation.ui.libraries.LibrariesScreen
 import com.plexwatch.presentation.ui.login.LoginScreen
+import com.plexwatch.presentation.ui.nowplaying.NowPlayingScreen
 import com.plexwatch.presentation.ui.servers.ServersScreen
 import com.plexwatch.presentation.ui.tracks.TracksScreen
 
@@ -86,7 +87,7 @@ fun PlexWatchNavHost() {
         }
 
         composable(Screen.NowPlaying.route) {
-            // NowPlayingScreen - to be implemented in Phase 4
+            NowPlayingScreen()
         }
     }
 }

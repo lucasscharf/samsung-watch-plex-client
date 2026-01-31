@@ -4,9 +4,11 @@ import com.plexwatch.data.local.TokenStorage
 import com.plexwatch.data.local.TokenStorageInterface
 import com.plexwatch.data.repository.AuthRepositoryImpl
 import com.plexwatch.data.repository.LibraryRepositoryImpl
+import com.plexwatch.data.repository.PlaybackRepositoryImpl
 import com.plexwatch.data.repository.ServerRepositoryImpl
 import com.plexwatch.domain.repository.AuthRepository
 import com.plexwatch.domain.repository.LibraryRepository
+import com.plexwatch.domain.repository.PlaybackRepository
 import com.plexwatch.domain.repository.ServerRepository
 import dagger.Binds
 import dagger.Module
@@ -32,4 +34,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindTokenStorage(impl: TokenStorage): TokenStorageInterface
+
+    @Binds
+    @Singleton
+    abstract fun bindPlaybackRepository(impl: PlaybackRepositoryImpl): PlaybackRepository
 }

@@ -48,4 +48,12 @@
     <string name="tracks_title">Tracks</string>
     <string name="tracks_loading">Loading tracks…</string>
     <string name="tracks_empty">No tracks found</string>
+
+    <!-- Now Playing Screen -->
+    <string name="now_playing_title">Now Playing</string>
+    <string name="now_playing_empty">No track playing</string>
+    <string name="now_playing_play">Play</string>
+    <string name="now_playing_pause">Pause</string>
+    <string name="now_playing_next">Next</string>
+    <string name="now_playing_previous">Previous</string>
 </resources>

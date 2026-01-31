@@ -63,7 +63,10 @@ fun TracksScreen(
             is TracksUiState.Success -> {
                 TracksContent(
                     tracks = state.tracks,
-                    onTrackClick = onTrackClick,
+                    onTrackClick = { trackId ->
+                        viewModel.onTrackClick(trackId)
+                        onTrackClick(trackId)
+                    },
                     listState = listState,
                     focusRequester = focusRequester,
                 )

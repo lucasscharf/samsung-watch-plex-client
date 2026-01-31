@@ -104,6 +104,9 @@ dependencies {
     implementation(libs.media3.session)
     implementation(libs.media3.ui)
 
+    // Image Loading
+    implementation(libs.coil.compose)
+
     // Security
     implementation(libs.security.crypto)
 
