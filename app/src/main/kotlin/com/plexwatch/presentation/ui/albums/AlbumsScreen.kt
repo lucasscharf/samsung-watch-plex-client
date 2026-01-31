@@ -48,10 +48,6 @@ fun AlbumsScreen(
     val listState = rememberScalingLazyListState()
     val focusRequester = remember { FocusRequester() }
 
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
-
     Scaffold(
         timeText = { TimeText() },
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
@@ -111,6 +107,10 @@ private fun AlbumsContent(
     listState: androidx.wear.compose.foundation.lazy.ScalingLazyListState,
     focusRequester: FocusRequester,
 ) {
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
     ScalingLazyColumn(
         modifier =
             Modifier
@@ -197,6 +197,10 @@ private fun ErrorContent(
     listState: androidx.wear.compose.foundation.lazy.ScalingLazyListState,
     focusRequester: FocusRequester,
 ) {
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
     ScalingLazyColumn(
         modifier =
             Modifier

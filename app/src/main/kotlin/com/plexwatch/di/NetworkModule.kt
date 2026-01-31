@@ -1,5 +1,6 @@
 package com.plexwatch.di
 
+import com.plexwatch.data.api.DynamicBaseUrlInterceptor
 import com.plexwatch.data.api.PlexAuthApi
 import com.plexwatch.data.api.PlexMediaApi
 import com.plexwatch.data.api.PlexServerApi
@@ -25,6 +26,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("base")
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -40,9 +42,26 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("media")
+    fun provideMediaOkHttpClient(dynamicBaseUrlInterceptor: DynamicBaseUrlInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(dynamicBaseUrlInterceptor)
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                },
+            )
+            .build()
+    }
+
+    @Provides
+    @Singleton
     @Named("plex_tv")
     fun providePlexTvRetrofit(
-        okHttpClient: OkHttpClient,
+        @Named("base") okHttpClient: OkHttpClient,
         moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
@@ -67,13 +86,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providePlexMediaApi(
-        okHttpClient: OkHttpClient,
+        @Named("media") okHttpClient: OkHttpClient,
         moshi: Moshi,
     ): PlexMediaApi {
         // Media API uses dynamic base URL based on selected server
-        // For now, we'll create a basic instance; actual calls will use the server URL
+        // The DynamicBaseUrlInterceptor replaces localhost with the actual server URL
         return Retrofit.Builder()
-            .baseUrl("http://localhost:32400/") // Placeholder, actual URL comes from server
+            .baseUrl("http://localhost:32400/")
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

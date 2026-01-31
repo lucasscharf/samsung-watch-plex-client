@@ -39,3 +39,7 @@ Existe algo compilável e recebi instruções para colocar um simulador. O probl
 Provavelmente, o trabalho vai parar no meio da semana porque já estou quase batendo o limite semanal de tokens.
 
 # Dia 2
+Mandei o claude analisar o problema pós pin. Ele disse que o erro foi que ele usou uma API antiga e com pouca autenticação. Se a causa é essa, a IA errou MUITO e de forma muito rude.
+Depois de queimar muito token, o claude conseguiu arrumar o login.
+Felizmente, ele conseguiu acessar a lista de servidores. Fiquei surpreso.
+Ao selecionar o servidor, nova surpresa. Não veio as músicas. O claude não havia implementado a busca pelas múiscas no servidor (isso que ele disse que tava pronto).
