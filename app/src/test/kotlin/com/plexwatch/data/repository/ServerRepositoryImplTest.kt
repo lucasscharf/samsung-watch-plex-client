@@ -34,7 +34,7 @@ class ServerRepositoryImplTest {
         }
 
     @Test
-    fun `refreshServers maps resources to servers`() =
+    fun `refreshServers maps resources to servers with relay connection`() =
         runTest {
             val resources =
                 listOf(
@@ -46,11 +46,12 @@ class ServerRepositoryImplTest {
                         connections =
                             listOf(
                                 ConnectionDto(
-                                    protocol = "http",
-                                    address = "192.168.1.100",
-                                    port = 32400,
-                                    uri = "http://192.168.1.100:32400",
-                                    local = true,
+                                    protocol = "https",
+                                    address = "45.79.210.125",
+                                    port = 8443,
+                                    uri = "https://45-79-210-125.abc123.plex.direct:8443",
+                                    local = false,
+                                    relay = true,
                                 ),
                             ),
                     ),
@@ -65,9 +66,7 @@ class ServerRepositoryImplTest {
             assertEquals(1, servers.size)
             assertEquals("My Server", servers[0].name)
             assertEquals("server-123", servers[0].id)
-            assertEquals("192.168.1.100", servers[0].address)
-            assertEquals(32400, servers[0].port)
-            assertTrue(servers[0].isLocal)
+            assertEquals("https://45-79-210-125.abc123.plex.direct:8443", servers[0].baseUrl)
             assertTrue(servers[0].isOwned)
         }
 
@@ -84,11 +83,12 @@ class ServerRepositoryImplTest {
                         connections =
                             listOf(
                                 ConnectionDto(
-                                    protocol = "http",
-                                    address = "192.168.1.100",
-                                    port = 32400,
-                                    uri = "http://192.168.1.100:32400",
-                                    local = true,
+                                    protocol = "https",
+                                    address = "45.79.210.125",
+                                    port = 8443,
+                                    uri = "https://45-79-210-125.abc123.plex.direct:8443",
+                                    local = false,
+                                    relay = true,
                                 ),
                             ),
                     ),
@@ -100,11 +100,12 @@ class ServerRepositoryImplTest {
                         connections =
                             listOf(
                                 ConnectionDto(
-                                    protocol = "http",
-                                    address = "192.168.1.101",
-                                    port = 32400,
-                                    uri = "http://192.168.1.101:32400",
-                                    local = true,
+                                    protocol = "https",
+                                    address = "45.79.210.126",
+                                    port = 8443,
+                                    uri = "https://45-79-210-126.abc123.plex.direct:8443",
+                                    local = false,
+                                    relay = true,
                                 ),
                             ),
                     ),
@@ -121,7 +122,7 @@ class ServerRepositoryImplTest {
         }
 
     @Test
-    fun `refreshServers flattens connections`() =
+    fun `refreshServers filters only relay connections`() =
         runTest {
             val resources =
                 listOf(
@@ -138,13 +139,15 @@ class ServerRepositoryImplTest {
                                     port = 32400,
                                     uri = "http://192.168.1.100:32400",
                                     local = true,
+                                    relay = false,
                                 ),
                                 ConnectionDto(
                                     protocol = "https",
-                                    address = "external.domain.com",
-                                    port = 32400,
-                                    uri = "https://external.domain.com:32400",
+                                    address = "45.79.210.125",
+                                    port = 8443,
+                                    uri = "https://45-79-210-125.abc123.plex.direct:8443",
                                     local = false,
+                                    relay = true,
                                 ),
                             ),
                     ),
@@ -156,9 +159,49 @@ class ServerRepositoryImplTest {
 
             assertTrue(result.isSuccess)
             val servers = result.getOrNull()!!
-            assertEquals(2, servers.size)
-            assertEquals("192.168.1.100", servers[0].address)
-            assertEquals("external.domain.com", servers[1].address)
+            assertEquals(1, servers.size)
+            assertEquals("https://45-79-210-125.abc123.plex.direct:8443", servers[0].baseUrl)
+        }
+
+    @Test
+    fun `refreshServers ignores server without relay connection`() =
+        runTest {
+            val resources =
+                listOf(
+                    ResourcesResponse(
+                        name = "My Server",
+                        clientIdentifier = "server-123",
+                        provides = "server",
+                        owned = true,
+                        connections =
+                            listOf(
+                                ConnectionDto(
+                                    protocol = "http",
+                                    address = "192.168.1.100",
+                                    port = 32400,
+                                    uri = "http://192.168.1.100:32400",
+                                    local = true,
+                                    relay = false,
+                                ),
+                                ConnectionDto(
+                                    protocol = "https",
+                                    address = "external.domain.com",
+                                    port = 32400,
+                                    uri = "https://external.domain.com:32400",
+                                    local = false,
+                                    relay = false,
+                                ),
+                            ),
+                    ),
+                )
+            tokenStorage.setAuthToken("test-token")
+            coEvery { serverApi.getResources(any(), any(), any()) } returns resources
+
+            val result = repository.refreshServers()
+
+            assertTrue(result.isSuccess)
+            val servers = result.getOrNull()!!
+            assertEquals(0, servers.size)
         }
 
     @Test

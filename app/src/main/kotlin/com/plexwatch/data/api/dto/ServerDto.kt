@@ -10,6 +10,8 @@ data class ResourcesResponse(
     @Json(name = "provides") val provides: String,
     @Json(name = "owned") val owned: Boolean,
     @Json(name = "connections") val connections: List<ConnectionDto>?,
+    @Json(name = "publicAddress") val publicAddress: String? = null,
+    @Json(name = "relay") val relay: Boolean = false,
 )
 
 @JsonClass(generateAdapter = true)
@@ -19,4 +21,5 @@ data class ConnectionDto(
     @Json(name = "port") val port: Int,
     @Json(name = "uri") val uri: String,
     @Json(name = "local") val local: Boolean,
+    @Json(name = "relay") val relay: Boolean = false,
 )

@@ -33,17 +33,17 @@ class ServerRepositoryImpl
                 val servers =
                     resources
                         .filter { it.provides.contains("server") }
-                        .flatMap { resource ->
-                            resource.connections?.map { connection ->
+                        .mapNotNull { resource ->
+                            // Find relay connection and use its URI directly
+                            val relayConnection = resource.connections?.find { it.relay }
+                            relayConnection?.let { connection ->
                                 PlexServer(
                                     id = resource.clientIdentifier,
                                     name = resource.name,
-                                    address = connection.address,
-                                    port = connection.port,
-                                    isLocal = connection.local,
+                                    baseUrl = connection.uri,
                                     isOwned = resource.owned,
                                 )
-                            } ?: emptyList()
+                            }
                         }
 
                 _servers.value = servers

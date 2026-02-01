@@ -13,7 +13,7 @@ interface PlexAuthApi {
     @FormUrlEncoded
     @POST("api/v2/pins")
     suspend fun createPin(
-        @Field("strong") strong: Boolean = true,
+        @Field("strong") strong: Boolean = false,
         @Header("X-Plex-Product") product: String = PLEX_PRODUCT,
         @Header("X-Plex-Client-Identifier") clientId: String,
         @Header("Accept") accept: String = "application/json",

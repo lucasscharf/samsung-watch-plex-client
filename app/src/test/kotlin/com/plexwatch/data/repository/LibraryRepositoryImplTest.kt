@@ -191,8 +191,7 @@ class LibraryRepositoryImplTest {
         runTest {
             val server =
                 TestFixtures.createPlexServer(
-                    address = "192.168.1.100",
-                    port = 32400,
+                    baseUrl = "https://45-79-210-125.abc123.plex.direct:8443",
                 )
             val track = TestFixtures.createTrack(mediaKey = "/library/parts/123/file.mp3")
 
@@ -202,7 +201,7 @@ class LibraryRepositoryImplTest {
             val result = repository.getStreamUrl(track)
 
             assertEquals(
-                "http://192.168.1.100:32400/library/parts/123/file.mp3?X-Plex-Token=test-token",
+                "https://45-79-210-125.abc123.plex.direct:8443/library/parts/123/file.mp3?X-Plex-Token=test-token",
                 result,
             )
         }

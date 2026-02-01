@@ -4,9 +4,8 @@ import app.cash.turbine.test
 import com.plexwatch.domain.model.LibraryType
 import com.plexwatch.domain.repository.LibraryRepository
 import com.plexwatch.util.TestFixtures
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -33,7 +32,7 @@ class GetLibrariesUseCaseTest {
                     TestFixtures.createPlexLibrary(id = "lib-3", title = "TV Shows", type = LibraryType.TV_SHOWS),
                     TestFixtures.createPlexLibrary(id = "lib-4", title = "More Music", type = LibraryType.MUSIC),
                 )
-            every { libraryRepository.getLibraries(serverId) } returns flowOf(allLibraries)
+            coEvery { libraryRepository.refreshLibraries(serverId) } returns Result.success(allLibraries)
 
             useCase(serverId, musicOnly = true).test {
                 val result = awaitItem()
@@ -54,7 +53,7 @@ class GetLibrariesUseCaseTest {
                     TestFixtures.createPlexLibrary(id = "lib-2", title = "Movies", type = LibraryType.MOVIES),
                     TestFixtures.createPlexLibrary(id = "lib-3", title = "TV Shows", type = LibraryType.TV_SHOWS),
                 )
-            every { libraryRepository.getLibraries(serverId) } returns flowOf(allLibraries)
+            coEvery { libraryRepository.refreshLibraries(serverId) } returns Result.success(allLibraries)
 
             useCase(serverId, musicOnly = false).test {
                 val result = awaitItem()
@@ -72,7 +71,7 @@ class GetLibrariesUseCaseTest {
                     TestFixtures.createPlexLibrary(id = "lib-1", title = "Music", type = LibraryType.MUSIC),
                     TestFixtures.createPlexLibrary(id = "lib-2", title = "Movies", type = LibraryType.MOVIES),
                 )
-            every { libraryRepository.getLibraries(serverId) } returns flowOf(allLibraries)
+            coEvery { libraryRepository.refreshLibraries(serverId) } returns Result.success(allLibraries)
 
             useCase(serverId).test {
                 val result = awaitItem()
@@ -90,7 +89,7 @@ class GetLibrariesUseCaseTest {
                 listOf(
                     TestFixtures.createPlexLibrary(id = "lib-1", title = "Movies", type = LibraryType.MOVIES),
                 )
-            every { libraryRepository.getLibraries(serverId) } returns flowOf(allLibraries)
+            coEvery { libraryRepository.refreshLibraries(serverId) } returns Result.success(allLibraries)
 
             useCase(serverId, musicOnly = true).test {
                 val result = awaitItem()

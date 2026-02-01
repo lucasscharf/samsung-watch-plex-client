@@ -42,4 +42,15 @@ Provavelmente, o trabalho vai parar no meio da semana porque já estou quase bat
 Mandei o claude analisar o problema pós pin. Ele disse que o erro foi que ele usou uma API antiga e com pouca autenticação. Se a causa é essa, a IA errou MUITO e de forma muito rude.
 Depois de queimar muito token, o claude conseguiu arrumar o login.
 Felizmente, ele conseguiu acessar a lista de servidores. Fiquei surpreso.
-Ao selecionar o servidor, nova surpresa. Não veio as músicas. O claude não havia implementado a busca pelas múiscas no servidor (isso que ele disse que tava pronto).
+Ao selecionar o servidor, nova surpresa. Não veio as músicas. O claude não havia implementado a busca pelas múscas no servidor (isso que ele disse que tava pronto).
+O problema foi causado pelo fato de que meu servidor plex não aceita conexão direta.
+Para contornar isso é necessário utilizar uma soluação chamada relay. 
+O claude teve bastante dificuldade em implementar o relay (dizendo que é algo bem mais complexo e tentando voltar a implementar conexão direta)
+
+Dores:
+* falta de padronização
+* riscos de segurança porque o claude vai pesquisando coisas por aí e pode receber alguma instrução maliciosa
+
+# Dia 3
+A implementação com relay funcionou.
+Claude chegou em algo minimamente funcional

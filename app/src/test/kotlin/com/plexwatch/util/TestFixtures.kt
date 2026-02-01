@@ -37,16 +37,12 @@ object TestFixtures {
     fun createPlexServer(
         id: String = "server-123",
         name: String = "Test Server",
-        address: String = "192.168.1.100",
-        port: Int = 32400,
-        isLocal: Boolean = true,
+        baseUrl: String = "https://192-168-1-100.abc123.plex.direct:32400",
         isOwned: Boolean = true,
     ) = PlexServer(
         id = id,
         name = name,
-        address = address,
-        port = port,
-        isLocal = isLocal,
+        baseUrl = baseUrl,
         isOwned = isOwned,
     )
 

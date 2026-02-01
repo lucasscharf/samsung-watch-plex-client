@@ -160,18 +160,6 @@ private fun ServerChip(
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        secondaryLabel = {
-            val locationText =
-                if (server.isLocal) {
-                    stringResource(R.string.servers_local)
-                } else {
-                    stringResource(R.string.servers_remote)
-                }
-            Text(
-                text = locationText,
-                maxLines = 1,
-            )
-        },
         colors = ChipDefaults.secondaryChipColors(),
     )
 }

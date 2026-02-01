@@ -53,23 +53,23 @@
 - [x] Suportar reprodução em background
 - [x] Adicionar notificação de mídia
 
+### Fase 5: Suporte a Conexão Relay (Exclusiva)
+- [x] Adicionar campo `relay: Boolean = false` ao `ConnectionDto`
+- [x] Remover campo `isLocal` do `PlexServer`
+- [x] Adicionar campo `protocol: String = "https"` ao `PlexServer`
+- [x] Modificar `baseUrl` para usar `"$protocol://$address:$port"`
+- [x] Filtrar apenas conexões onde `connection.relay == true`
+- [x] Mapear `connection.protocol` → `protocol`
+- [x] Atualizar `TestFixtures.createPlexServer()` - remover `isLocal`, adicionar `protocol`
+- [x] Atualizar testes existentes para refletir nova estrutura
+- [x] Adicionar teste `refreshServers filters only relay connections`
+- [x] Adicionar teste `refreshServers ignores non-relay connections`
+- [x] Remover exibição de "Local"/"Remote" em `ServersScreen`
+- [x] Simplificar `ServerChip` (remover lógica de isLocal)
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 5: Polimento e Features do Watch
-- [ ] Navegação com rotary bezel/crown
-- [ ] Complication para acesso rápido
-- [ ] Tile para controle de reprodução
-- [ ] Otimização de bateria
-- [ ] Cache de metadados offline
-- [ ] Download de faixas para offline (opcional)
-
-### Testes
-- [ ] Testes unitários para use cases
-- [ ] Testes unitários para ViewModels
-- [ ] Testes de integração para repositórios
-- [ ] Testes de UI com Compose Testing
 
 ---
 
@@ -85,3 +85,4 @@
 - Autenticação via PIN: `POST plex.tv/pins.json` → polling `GET plex.tv/pins/{id}.json`
 - Tipo de mídia para artistas na API Plex: `type=8`
 - Servidor Plex roda na porta 32400 por padrão
+- **Conexão Relay:** App usa exclusivamente conexões relay do Plex (sempre HTTPS via plex.tv)
