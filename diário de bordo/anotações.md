@@ -47,10 +47,23 @@ O problema foi causado pelo fato de que meu servidor plex não aceita conexão d
 Para contornar isso é necessário utilizar uma soluação chamada relay. 
 O claude teve bastante dificuldade em implementar o relay (dizendo que é algo bem mais complexo e tentando voltar a implementar conexão direta)
 
-Dores:
-* falta de padronização
+
+# Dia 3 (01/02/2026)
+Comecei a madrugada/dia de domingo com avanços legais sobre o relay. Após isso, tive algumas dores de volta com o login (parece que o claude desaprende as coisas). Dei dicas sobre pesquisar a API de login e funcionou.
+Com isso, a implementação com relay funcionou.
+Testei no simulador. Carregou tudo e tocou música.
+Fui empolgado testar no relógio e... deu tudo certo.
+Escrevo nesse momento ouvindo AC/DC tocando diretamente pelo relógio usando meu servidor plex.
+Estou muito surpreso pela facilidade em ter feito algo funcional em um contexto que eu não conhecia.
+Principalmente porque foi algo feito totalmente sem foco enquanto lia Orgulho e Preconceito.
+Tenho plena convicção de que não chegaria nesse protótipo na velocidade que eu cheguei.
+Existe bugs e o projeto está longe de ser algo usado de forma profissional. 
+Como é fácil ir corrigindo os bugs e ajustando as coisas, acho bem possível que eu vá arrumando as coisas enquanto os tokens permitirem.
+Dado os contextos, o resultado é algo totalmente tolerável ;D
+
+
+Falar sobre dores:
+* falta de padronização no código
+* IA parece que esquece coisas
 * riscos de segurança porque o claude vai pesquisando coisas por aí e pode receber alguma instrução maliciosa
 
-# Dia 3
-A implementação com relay funcionou.
-Claude chegou em algo minimamente funcional

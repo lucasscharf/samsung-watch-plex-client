@@ -1,4 +1,4 @@
-Data Estelar 31012026 — O capitão descobre que a IA mente. Com confiança.
+Data Estelar 31012026 - A nave falha porque a IA mente com confiança
 
 Acordei determinado a resolver o problema do PIN que não funcionava. Mandei o Claude investigar. A resposta? "Ah, é que eu usei uma API antiga com autenticação diferente." Em bom brasileiro: ele inventou uma integração que não existia. Não foi um bug sutil. Foi erro grosseiro. Junto com as falhas do docker, são erros que não são aceitáveis.
 
