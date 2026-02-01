@@ -71,11 +71,34 @@
 
 ## Próximos Passos 🚀
 
+### Fase 6: Licenciamento e Limpeza
+- [ ] Adicionar arquivo LICENSE com GPLv3
+- [ ] Adicionar header de licença nos arquivos fonte
+- [ ] Atualizar README com informações de licença
+- [ ] Remover referências ao Docker do README
+- [ ] Remover Dockerfile e arquivos relacionados ao Docker
+
+### Fase 7: Correção de Bugs
+- [ ] Corrigir contagem de álbuns que sempre retorna zero
+- [ ] Corrigir contagem de músicas exibida incorretamente
+
+### Fase 8: Melhoria de UX na Reprodução
+- [ ] Detectar se há música tocando ao abrir o app
+- [ ] Redirecionar automaticamente para NowPlayingScreen se houver reprodução ativa
+- [ ] Adicionar acesso rápido para pause/resume da música atual
+
+### Fase 9: Cache e Persistência Local
+- [ ] Criar banco de dados local (Room) para cache de artistas/álbuns/músicas
+- [ ] Implementar sincronização inicial da biblioteca
+- [ ] Adicionar botão "Atualizar biblioteca" para refresh manual do cache
+- [ ] Usar dados do cache para navegação offline dos metadados
+
 ---
 
 ## Bugs Conhecidos 🐛
 
-(Nenhum no momento)
+- Contagem de álbuns sempre retorna zero
+- Contagem de músicas exibida incorretamente
 
 ---
 
