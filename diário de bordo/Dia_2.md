@@ -15,3 +15,9 @@ Foi aí que percebi um padrão: a IA parece ter dificuldade em mudar de direçã
 Talvez eu podesse ter resolvido isso limpando contexto (que dizem que é bom ficar sempre abaixo dos 50%).
 
 No final do dia, ainda não toquei música nenhuma. Mas pelo menos entendi melhor as limitações da ferramenta.O experimento continua. Amanhã: fazer o relay funcionar de verdade.
+
+Ps.
+Como a postagem de hoje é do dia de ontem e como trabalhei madrugada a dentro, amanhã haverá surpresas.
+
+Pps.
+Quem quiser acompanhar o github do projeto, é só pedir.

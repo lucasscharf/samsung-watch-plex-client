@@ -168,14 +168,17 @@ class LibraryRepositoryImplTest {
                                         year = null,
                                         duration = null,
                                         index = null,
-                                        leafCount = 5,
+                                        childCount = 5,
+                                        leafCount = 42,
                                         media = null,
                                     ),
                                 ),
                         ),
                 )
             tokenStorage.setAuthToken("test-token")
-            coEvery { mediaApi.getLibraryContent("1", "test-token", type = 8, any()) } returns response
+            coEvery {
+                mediaApi.getLibraryContent(any(), any(), any(), any(), any())
+            } returns response
 
             val result = repository.getArtists("1")
 
@@ -184,6 +187,46 @@ class LibraryRepositoryImplTest {
             assertEquals(1, artists.size)
             assertEquals("Artist One", artists[0].name)
             assertEquals(5, artists[0].albumCount)
+        }
+
+    @Test
+    fun `getArtists uses childCount for albumCount not leafCount`() =
+        runTest {
+            val response =
+                MediaContainerResponse(
+                    mediaContainer =
+                        MediaContainer(
+                            size = 1,
+                            metadata =
+                                listOf(
+                                    MetadataDto(
+                                        ratingKey = "artist-1",
+                                        key = "/library/artist-1",
+                                        title = "Artist With Many Tracks",
+                                        type = "artist",
+                                        thumb = null,
+                                        art = null,
+                                        parentTitle = null,
+                                        grandparentTitle = null,
+                                        year = null,
+                                        duration = null,
+                                        index = null,
+                                        childCount = 3,
+                                        leafCount = 150,
+                                        media = null,
+                                    ),
+                                ),
+                        ),
+                )
+            tokenStorage.setAuthToken("test-token")
+            coEvery {
+                mediaApi.getLibraryContent(any(), any(), any(), any(), any())
+            } returns response
+
+            val result = repository.getArtists("2")
+
+            assertTrue(result.isSuccess)
+            assertEquals(3, result.getOrNull()!![0].albumCount)
         }
 
     @Test
@@ -244,6 +287,7 @@ class LibraryRepositoryImplTest {
                                         year = null,
                                         duration = 180000L,
                                         index = 1,
+                                        childCount = null,
                                         leafCount = null,
                                         media =
                                             listOf(
@@ -264,7 +308,9 @@ class LibraryRepositoryImplTest {
                         ),
                 )
             tokenStorage.setAuthToken("test-token")
-            coEvery { mediaApi.getChildren("album-123", "test-token", any()) } returns response
+            coEvery {
+                mediaApi.getChildren(any(), any(), any(), any())
+            } returns response
 
             val result = repository.getAlbumTracks("album-123")
 

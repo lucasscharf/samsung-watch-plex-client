@@ -16,11 +16,12 @@ Principais dores:
 
 * O código gerado não segue um padrão consistente. Cada parte parece ter sido escrita por uma pessoa diferente. Isso é esperado quando você aceita tudo que a IA sugere sem revisar.
 
-*Parece que quanto mais contexto acumula, mais a IA perde informações antigas. Coisas que ela "sabia" ela "passa a esquecer". Soluções precisaram ser reimplementadas porque ela cagou o rolê.
+* Parece que quanto mais contexto acumula, mais a IA perde informações antigas. Coisas que ela "sabia" ela "passa a esquecer". Soluções precisaram ser reimplementadas porque ela cagou o rolê. Consequência da cadeia de Markov. O negócio é aceitar que as coisas são assim.
 
 * O Claude pesquisa informações na web para implementar coisas. O que impede alguém de colocar instruções maliciosas em uma documentação de API? A IA pode estar executando código que veio de uma fonte comprometida.
 
+* Mesmo tentando MUITAS vezes, não consegui fazer fazer com que claude retornasse a quantidade de faixas no álbum. Aceitei como se a vida fosse assim e é isso aí.
 
-E o que eu vou fazer? Bem, o app funciona, mas precisa de polimento. A interface está feia, a navegação é confusa, a parte de contagem de álbuns e músicas está ruim, não consigo pausar a música de uma forma rápida, não tem nada de memória/cache no relógio e provavelmente tem memory leaks em algum lugar. Enquanto os tokens permitirem, vou mandando o Claude corrigir. 
+E o que eu vou fazer? Bem, o app funciona, mas precisa de polimento. A interface está feia, a navegação é confusa, a parte de contagem de álbuns e músicas está ruim, não consigo pausar a música de uma forma rápida, não tem nada de memória/cache no relógio e provavelmente tem memory leaks em algum lugar. Enquanto os tokens permitirem, vou mandando o Claude corrigir.
 
 Como diria Fitzwilliam Darcy, a prova de conceito foi tolerável.

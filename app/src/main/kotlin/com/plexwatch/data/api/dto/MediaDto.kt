@@ -47,6 +47,7 @@ data class MetadataDto(
     @Json(name = "year") val year: Int?,
     @Json(name = "duration") val duration: Long?,
     @Json(name = "index") val index: Int?,
+    @Json(name = "childCount") val childCount: Int?,
     @Json(name = "leafCount") val leafCount: Int?,
     @Json(name = "Media") val media: List<MediaInfoDto>?,
 )

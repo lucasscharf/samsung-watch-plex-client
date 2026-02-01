@@ -160,15 +160,18 @@ private fun AlbumChip(
 ) {
     val subtitle =
         buildString {
-            album.year?.let { append("$it • ") }
-            append(
-                pluralStringResource(
-                    R.plurals.albums_track_count,
-                    album.trackCount,
-                    album.trackCount,
-                ),
-            )
-        }
+            album.year?.let { append(it) }
+            if (album.trackCount > 0) {
+                if (isNotEmpty()) append(" • ")
+                append(
+                    pluralStringResource(
+                        R.plurals.albums_track_count,
+                        album.trackCount,
+                        album.trackCount,
+                    ),
+                )
+            }
+        }.takeIf { it.isNotEmpty() }
 
     Chip(
         modifier = Modifier.fillMaxWidth(),
@@ -180,12 +183,15 @@ private fun AlbumChip(
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        secondaryLabel = {
-            Text(
-                text = subtitle,
-                maxLines = 1,
-            )
-        },
+        secondaryLabel =
+            subtitle?.let {
+                {
+                    Text(
+                        text = it,
+                        maxLines = 1,
+                    )
+                }
+            },
         colors = ChipDefaults.secondaryChipColors(),
     )
 }

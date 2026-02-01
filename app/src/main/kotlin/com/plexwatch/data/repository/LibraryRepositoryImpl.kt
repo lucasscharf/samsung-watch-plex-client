@@ -65,7 +65,8 @@ class LibraryRepositoryImpl
                         id = metadata.ratingKey,
                         name = metadata.title,
                         thumbUri = metadata.thumb,
-                        albumCount = metadata.leafCount ?: 0,
+                        // childCount = direct children (albums), leafCount = all descendants (tracks)
+                        albumCount = metadata.childCount ?: 0,
                     )
                 } ?: emptyList()
             }

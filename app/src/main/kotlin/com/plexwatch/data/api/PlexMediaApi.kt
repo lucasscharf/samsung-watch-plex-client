@@ -19,6 +19,7 @@ interface PlexMediaApi {
         @Path("key") libraryKey: String,
         @Header("X-Plex-Token") token: String,
         @Query("type") type: Int? = null,
+        @Query("includeRelatedCount") includeRelatedCount: Int = 1,
         @Header("Accept") accept: String = "application/json",
     ): MediaContainerResponse
 
@@ -26,6 +27,7 @@ interface PlexMediaApi {
     suspend fun getChildren(
         @Path("id") metadataId: String,
         @Header("X-Plex-Token") token: String,
+        @Query("includeRelatedCount") includeRelatedCount: Int = 1,
         @Header("Accept") accept: String = "application/json",
     ): MediaContainerResponse
 }

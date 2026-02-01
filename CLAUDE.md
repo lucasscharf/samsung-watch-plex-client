@@ -96,6 +96,18 @@ app/src/main/kotlin/com/plexwatch/
 
 See `todo.md` for detailed task list and known bugs.
 
+## Alteração de Contratos de API
+
+**IMPORTANTE:** Antes de alterar DTOs ou mapeamentos que consomem APIs externas, SEMPRE consulte a documentação oficial da API:
+
+1. Para a API do Plex, consulte:
+   - [Python PlexAPI Docs](https://python-plexapi.readthedocs.io/)
+   - [Plexopedia](https://www.plexopedia.com/plex-media-server/api/)
+
+2. Use logs ou debugging para inspecionar a resposta real da API quando houver dúvida
+
+3. Documente no código quando um campo tem comportamento diferente do esperado pelo nome
+
 ## License
 
 Este projeto usa licença **GPL-3.0**. Veja `LICENSE.md` para o texto completo.

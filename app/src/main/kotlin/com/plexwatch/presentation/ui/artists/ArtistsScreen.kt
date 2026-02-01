@@ -168,17 +168,22 @@ private fun ArtistChip(
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        secondaryLabel = {
-            Text(
-                text =
-                    pluralStringResource(
-                        R.plurals.artists_album_count,
-                        artist.albumCount,
-                        artist.albumCount,
-                    ),
-                maxLines = 1,
-            )
-        },
+        secondaryLabel =
+            if (artist.albumCount > 0) {
+                {
+                    Text(
+                        text =
+                            pluralStringResource(
+                                R.plurals.artists_album_count,
+                                artist.albumCount,
+                                artist.albumCount,
+                            ),
+                        maxLines = 1,
+                    )
+                }
+            } else {
+                null
+            },
         colors = ChipDefaults.secondaryChipColors(),
     )
 }

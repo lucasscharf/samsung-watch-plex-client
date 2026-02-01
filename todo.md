@@ -74,13 +74,13 @@
 - [x] Remover referências ao Docker do README
 - [x] Remover Dockerfile e arquivos relacionados ao Docker
 
+### Fase 7: Correção de Bugs de Contagem
+- [x] Investigar contagem de álbuns/tracks sempre zero (API do Plex não retorna childCount/leafCount)
+- [x] Ocultar contagens na UI quando dados não disponíveis (em vez de mostrar "0")
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 7: Correção de Bugs
-- [ ] Corrigir contagem de álbuns que sempre retorna zero
-- [ ] Corrigir contagem de músicas exibida incorretamente
 
 ### Fase 8: Melhoria de UX na Reprodução
 - [ ] Detectar se há música tocando ao abrir o app
@@ -92,13 +92,6 @@
 - [ ] Implementar sincronização inicial da biblioteca
 - [ ] Adicionar botão "Atualizar biblioteca" para refresh manual do cache
 - [ ] Usar dados do cache para navegação offline dos metadados
-
----
-
-## Bugs Conhecidos 🐛
-
-- Contagem de álbuns sempre retorna zero
-- Contagem de músicas exibida incorretamente
 
 ---
 
