@@ -31,7 +31,7 @@ O projeto nasceu de três motivações principais:
 ## Ambiente de Desenvolvimento e Teste
 
 - **Servidor Plex local** disponível para testes
-- **Docker** para builds (não requer Android SDK instalado localmente)
+- **Android SDK** com API 34 para builds
 - **Gradle cache** otimizado para builds mais rápidos
 - **ktlint** para padronização de código
 
@@ -46,7 +46,7 @@ O projeto nasceu de três motivações principais:
 | Playback | Media3 ExoPlayer |
 | Storage | EncryptedSharedPreferences |
 | Testes | JUnit, MockK, Turbine |
-| Build | Gradle Kotlin DSL, Docker |
+| Build | Gradle Kotlin DSL |
 
 ## Estrutura do Projeto
 

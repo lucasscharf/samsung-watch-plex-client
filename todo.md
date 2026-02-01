@@ -67,16 +67,16 @@
 - [x] Remover exibição de "Local"/"Remote" em `ServersScreen`
 - [x] Simplificar `ServerChip` (remover lógica de isLocal)
 
+### Fase 6: Licenciamento e Limpeza
+- [x] Adicionar arquivo LICENSE com GPLv3
+- [x] Atualizar README com informações de licença
+- [x] Atualizar o project-spec com informações da licença
+- [x] Remover referências ao Docker do README
+- [x] Remover Dockerfile e arquivos relacionados ao Docker
+
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 6: Licenciamento e Limpeza
-- [ ] Adicionar arquivo LICENSE com GPLv3
-- [ ] Adicionar header de licença nos arquivos fonte
-- [ ] Atualizar README com informações de licença
-- [ ] Remover referências ao Docker do README
-- [ ] Remover Dockerfile e arquivos relacionados ao Docker
 
 ### Fase 7: Correção de Bugs
 - [ ] Corrigir contagem de álbuns que sempre retorna zero

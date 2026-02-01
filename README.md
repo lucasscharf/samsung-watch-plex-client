@@ -5,26 +5,9 @@ A Plex music client for Samsung Galaxy Watch (Wear OS). Stream your Plex music l
 ## Prerequisites
 
 - Java 17+
-- One of:
-  - Docker (recommended)
-  - Android SDK with API 34
+- Android SDK with API 34
 
 ## Build
-
-### Using Docker (Recommended)
-
-```bash
-# Build the Docker image (first time only)
-docker build -t android-build .
-
-# Build the project
-docker run --rm -v "$(pwd)":/app android-build ./gradlew build --no-daemon
-
-# Build debug APK only
-docker run --rm -v "$(pwd)":/app android-build ./gradlew assembleDebug --no-daemon
-```
-
-### Using Local Android SDK
 
 ```bash
 # Set ANDROID_HOME
@@ -97,3 +80,17 @@ adb logcat | grep -i plexwatch
   - `domain/` - Business logic, models, use cases
   - `presentation/` - UI screens, ViewModels, navigation
   - `di/` - Dependency injection modules
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
+
+This means you are free to:
+- Use, copy, and distribute the software
+- Modify the source code
+- Distribute modified versions
+
+Under the condition that:
+- Any distributed copies or modifications must also be licensed under GPL-3.0
+- Source code must be made available when distributing the software
+- Changes must be documented

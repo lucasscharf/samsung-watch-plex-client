@@ -40,6 +40,16 @@ adb logcat | grep -i plexwatch
 - **Presentation Layer (ViewModels):** Testes unitários com mocks dos use cases
 - Execute `./gradlew test` para rodar todos os testes antes de fazer commit
 
+## Testing Patterns
+
+Tests use MockK for mocking and Turbine for Flow testing. Use `TestFixtures` object (`app/src/test/kotlin/com/plexwatch/util/TestFixtures.kt`) to create domain model instances:
+
+```kotlin
+val pin = TestFixtures.createPlexPin(code = "WXYZ")
+val server = TestFixtures.createPlexServer(name = "My Server")
+val track = TestFixtures.createTrack(title = "Song Name")
+```
+
 ## Architecture
 
 Clean Architecture with MVVM pattern:
@@ -64,13 +74,16 @@ app/src/main/kotlin/com/plexwatch/
 └── di/                      # Hilt DI modules
 ```
 
+**Dynamic Base URL:** `DynamicBaseUrlInterceptor` intercepts requests to `localhost` and rewrites them to the currently selected Plex server's URL. Media API requests use `localhost` as placeholder.
+
 ## Key Dependencies
 
-- **UI**: Jetpack Compose for Wear OS
+- **UI**: Jetpack Compose for Wear OS + Horologist
 - **DI**: Hilt
 - **Network**: Retrofit + OkHttp + Moshi
 - **Media**: Media3 ExoPlayer
 - **Security**: EncryptedSharedPreferences
+- **Testing**: MockK, Turbine, kotlinx-coroutines-test
 
 ## Plex API
 
@@ -79,12 +92,12 @@ app/src/main/kotlin/com/plexwatch/
 - Library browsing: `GET {server}/library/sections`
 - All requests require `X-Plex-Token` header
 - Artist type in Plex API: `type=8`
-- Default Plex server port: `32400`
+- **Relay-only connections:** App uses exclusively Plex relay connections (`connection.relay == true`), ensuring HTTPS access through plex.direct domains
 
-## Current Status
+See `todo.md` for detailed task list and known bugs.
 
-**Implemented:** Project setup, Clean Architecture base, domain models, repository interfaces/implementations, Plex API clients, Hilt DI, HomeScreen with auth state.
+## License
 
-**Next:** LoginScreen (PIN flow), ServersScreen, LibrariesScreen, audio playback with ExoPlayer.
+Este projeto usa licença **GPL-3.0**. Veja `LICENSE.md` para o texto completo.
 
-See `todo.md` for detailed task list.
+**IMPORTANTE:** NÃO adicione cabeçalhos de licença nos arquivos de código fonte. A licença é definida centralmente no arquivo `LICENSE.md` e cobre implicitamente todos os arquivos do repositório. Veja `project-spec/07_LICENSE.md` para detalhes.
