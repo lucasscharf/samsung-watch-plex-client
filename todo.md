@@ -78,20 +78,27 @@
 - [x] Investigar contagem de álbuns/tracks sempre zero (API do Plex não retorna childCount/leafCount)
 - [x] Ocultar contagens na UI quando dados não disponíveis (em vez de mostrar "0")
 
+### Fase 8: Melhoria de UX na Reprodução
+- [x] Detectar se há música tocando ao abrir o app
+- [x] Redirecionar automaticamente para NowPlayingScreen se houver reprodução ativa
+- [x] Adicionar acesso rápido para pause/resume da música atual (botão "Now Playing" na HomeScreen)
+
 ---
 
 ## Próximos Passos 🚀
 
-### Fase 8: Melhoria de UX na Reprodução
-- [ ] Detectar se há música tocando ao abrir o app
-- [ ] Redirecionar automaticamente para NowPlayingScreen se houver reprodução ativa
-- [ ] Adicionar acesso rápido para pause/resume da música atual
+Adicionar no readme os comandos para fazer pair e connect para debugar no dispositivo
 
 ### Fase 9: Cache e Persistência Local
 - [ ] Criar banco de dados local (Room) para cache de artistas/álbuns/músicas
 - [ ] Implementar sincronização inicial da biblioteca
 - [ ] Adicionar botão "Atualizar biblioteca" para refresh manual do cache
 - [ ] Usar dados do cache para navegação offline dos metadados
+
+# Fase 10
+Criar um novo logo
+
+
 
 ---
 

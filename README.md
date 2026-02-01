@@ -44,18 +44,49 @@ adb shell am start -n com.plexwatch.debug/com.plexwatch.presentation.MainActivit
 
 ### Option 2: Physical Samsung Galaxy Watch
 
-1. On watch: **Settings → About watch → Software version** → tap 5 times to enable Developer Mode
-2. **Settings → Developer options → ADB debugging → Enable**
-3. **Developer options → Debug over WiFi** → note the IP and port
-4. Connect and install:
+#### 1. Enable Developer Mode on the Watch
+
+1. On watch: **Settings → About watch → Software → Software version**
+2. Tap "Software version" **5 times** until you see "Developer mode enabled"
+
+#### 2. Enable ADB Debugging
+
+1. Go to **Settings → Developer options**
+2. Enable **ADB debugging**
+3. Enable **Debug over Wi-Fi** (or "Wireless debugging")
+4. Wait for the IP address and port to appear (e.g., `192.168.1.100:5555`)
+
+#### 3. Pair the Watch (Required for Wear OS 3+)
+
+On Wear OS 3 and later, you need to pair before connecting:
+
+1. On the watch: **Developer options → Pair new device**
+2. Note the pairing code and the IP:port shown (e.g., `192.168.1.100:12345`)
+3. On your computer, run:
 
 ```bash
-# Connect to watch (replace with your watch IP)
+# Pair with the watch (use the IP:port shown on "Pair new device" screen)
+adb pair 192.168.1.100:12345
+# Enter the pairing code when prompted
+```
+
+#### 4. Connect and Install
+
+```bash
+# Connect to watch (use the IP:port from "Debug over Wi-Fi", NOT the pairing port)
 adb connect 192.168.1.100:5555
+
+# Verify connection
+adb devices
 
 # Install APK
 adb install app/build/outputs/apk/debug/app-debug.apk
+
+# Launch the app
+adb shell am start -n com.plexwatch.debug/com.plexwatch.presentation.MainActivity
 ```
+
+> **Note:** The pairing port (step 3) and the debug port (step 4) are different. Use the correct port for each step.
 
 ### Debugging
 

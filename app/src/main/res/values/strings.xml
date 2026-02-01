@@ -50,6 +50,9 @@
     <string name="tracks_loading">Loading tracks…</string>
     <string name="tracks_empty">No tracks found</string>
 
+    <!-- Home Screen -->
+    <string name="home_now_playing">Now Playing</string>
+
     <!-- Now Playing Screen -->
     <string name="now_playing_title">Now Playing</string>
     <string name="now_playing_empty">No track playing</string>

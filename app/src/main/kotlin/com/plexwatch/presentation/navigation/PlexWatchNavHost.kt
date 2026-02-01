@@ -29,6 +29,9 @@ fun PlexWatchNavHost() {
                 onNavigateToServers = {
                     navController.navigate(Screen.Servers.route)
                 },
+                onNavigateToNowPlaying = {
+                    navController.navigate(Screen.NowPlaying.route)
+                },
             )
         }
 
