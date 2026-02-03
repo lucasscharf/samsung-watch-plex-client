@@ -95,6 +95,15 @@
 ### Fase 10
 Criar um novo logo
 
+### Fase 11: Contador de Reproduções
+- [ ] Adicionar campo `playCount: Int` na entidade `TrackEntity` (Room)
+- [ ] Criar migration do banco de dados (versão 1 → 2)
+- [ ] Adicionar campo `playCount` no modelo de domínio `Track`
+- [ ] Criar use case `IncrementPlayCountUseCase`
+- [ ] Incrementar contador quando uma música termina de tocar
+- [ ] Exibir contador ao lado do nome da música na `TracksScreen`
+- [ ] Atualizar mapeadores (entity ↔ domain)
+
 
 
 ---

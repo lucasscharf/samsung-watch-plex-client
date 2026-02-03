@@ -4,8 +4,70 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Plex-like play triangle -->
+
+    <!-- Plex play triangle (top) -->
     <path
         android:fillColor="#E5A00D"
-        android:pathData="M38,30 L78,54 L38,78 Z"/>
+        android:pathData="M40,24 L72,42 L40,60 Z"/>
+
+    <!-- Space Invader: Left antenna -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M38,58 L42,58 L42,62 L38,62 Z"/>
+
+    <!-- Space Invader: Right antenna -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M66,58 L70,58 L70,62 L66,62 Z"/>
+
+    <!-- Space Invader: Main body (head) -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M34,62 L74,62 L74,74 L34,74 Z"/>
+
+    <!-- Space Invader: Left eye -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,65 L48,65 L48,71 L40,71 Z"/>
+
+    <!-- Space Invader: Right eye -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,65 L68,65 L68,71 L60,71 Z"/>
+
+    <!-- Space Invader: Body middle row -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M38,74 L70,74 L70,78 L38,78 Z"/>
+
+    <!-- Space Invader: Left arm down -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M30,78 L38,78 L38,82 L34,82 L34,86 L30,86 Z"/>
+
+    <!-- Space Invader: Right arm down -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M70,78 L78,78 L78,86 L74,86 L74,82 L70,82 Z"/>
+
+    <!-- Space Invader: Center body -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M42,78 L66,78 L66,82 L42,82 Z"/>
+
+    <!-- Space Invader: Left leg -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M42,82 L46,82 L46,88 L42,88 Z"/>
+
+    <!-- Space Invader: Right leg -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M62,82 L66,82 L66,88 L62,88 Z"/>
+
+    <!-- Space Invader: Center gap legs -->
+    <path
+        android:fillColor="#D97757"
+        android:pathData="M50,82 L58,82 L58,86 L50,86 Z"/>
+
 </vector>
