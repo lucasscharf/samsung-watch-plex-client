@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +29,7 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material.CompactChip
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -59,10 +61,12 @@ fun TracksScreen(
             is TracksUiState.Success -> {
                 TracksContent(
                     tracks = state.tracks,
+                    isRefreshing = state.isRefreshing,
                     onTrackClick = { trackId ->
                         viewModel.onTrackClick(trackId)
                         onTrackClick(trackId)
                     },
+                    onRefresh = viewModel::refresh,
                     listState = listState,
                     focusRequester = focusRequester,
                 )
@@ -105,7 +109,9 @@ private fun LoadingContent() {
 @Composable
 private fun TracksContent(
     tracks: List<Track>,
+    isRefreshing: Boolean,
     onTrackClick: (trackId: String) -> Unit,
+    onRefresh: () -> Unit,
     listState: androidx.wear.compose.foundation.lazy.ScalingLazyListState,
     focusRequester: FocusRequester,
 ) {
@@ -133,7 +139,16 @@ private fun TracksContent(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+        item {
+            RefreshChip(
+                isRefreshing = isRefreshing,
+                onClick = onRefresh,
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.height(4.dp))
         }
         if (tracks.isEmpty()) {
             item {
@@ -153,6 +168,30 @@ private fun TracksContent(
             }
         }
     }
+}
+
+@Composable
+private fun RefreshChip(
+    isRefreshing: Boolean,
+    onClick: () -> Unit,
+) {
+    CompactChip(
+        onClick = onClick,
+        enabled = !isRefreshing,
+        label = {
+            if (isRefreshing) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(16.dp),
+                    strokeWidth = 2.dp,
+                )
+            } else {
+                Text(
+                    text = stringResource(R.string.common_refresh),
+                    maxLines = 1,
+                )
+            }
+        },
+    )
 }
 
 @Composable

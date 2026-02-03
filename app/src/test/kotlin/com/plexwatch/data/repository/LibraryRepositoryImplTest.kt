@@ -11,12 +11,22 @@ import com.plexwatch.data.api.dto.MediaInfoDto
 import com.plexwatch.data.api.dto.MetadataDto
 import com.plexwatch.data.api.dto.PartDto
 import com.plexwatch.data.local.FakeTokenStorage
+import com.plexwatch.data.local.db.dao.AlbumDao
+import com.plexwatch.data.local.db.dao.ArtistDao
+import com.plexwatch.data.local.db.dao.LibrarySyncDao
+import com.plexwatch.data.local.db.dao.TrackDao
+import com.plexwatch.data.local.db.entity.ArtistEntity
+import com.plexwatch.data.local.db.entity.LibrarySyncEntity
+import com.plexwatch.data.local.db.entity.TrackEntity
 import com.plexwatch.domain.model.LibraryType
 import com.plexwatch.domain.repository.ServerRepository
 import com.plexwatch.util.TestFixtures
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -28,6 +38,10 @@ class LibraryRepositoryImplTest {
     private lateinit var mediaApi: PlexMediaApi
     private lateinit var tokenStorage: FakeTokenStorage
     private lateinit var serverRepository: ServerRepository
+    private lateinit var librarySyncDao: LibrarySyncDao
+    private lateinit var artistDao: ArtistDao
+    private lateinit var albumDao: AlbumDao
+    private lateinit var trackDao: TrackDao
     private lateinit var repository: LibraryRepositoryImpl
 
     @Before
@@ -35,7 +49,20 @@ class LibraryRepositoryImplTest {
         mediaApi = mockk()
         tokenStorage = FakeTokenStorage()
         serverRepository = mockk()
-        repository = LibraryRepositoryImpl(mediaApi, tokenStorage, serverRepository)
+        librarySyncDao = mockk()
+        artistDao = mockk()
+        albumDao = mockk()
+        trackDao = mockk()
+        repository =
+            LibraryRepositoryImpl(
+                mediaApi,
+                tokenStorage,
+                serverRepository,
+                librarySyncDao,
+                artistDao,
+                albumDao,
+                trackDao,
+            )
     }
 
     @Test
@@ -147,13 +174,37 @@ class LibraryRepositoryImplTest {
         }
 
     @Test
-    fun `getArtists uses type 8 for artist`() =
+    fun `getArtists returns flow from DAO`() =
+        runTest {
+            val artistEntities =
+                listOf(
+                    ArtistEntity(
+                        id = "artist-1",
+                        libraryKey = "1",
+                        name = "Artist One",
+                        thumbUri = "/thumb1",
+                        albumCount = 5,
+                    ),
+                )
+            every { artistDao.getByLibraryKey("1") } returns flowOf(artistEntities)
+
+            repository.getArtists("1").test {
+                val artists = awaitItem()
+                assertEquals(1, artists.size)
+                assertEquals("Artist One", artists[0].name)
+                assertEquals(5, artists[0].albumCount)
+                awaitComplete()
+            }
+        }
+
+    @Test
+    fun `syncLibrary fetches from API and saves to DAO when not synced`() =
         runTest {
             val response =
                 MediaContainerResponse(
                     mediaContainer =
                         MediaContainer(
-                            size = 2,
+                            size = 1,
                             metadata =
                                 listOf(
                                     MetadataDto(
@@ -176,57 +227,33 @@ class LibraryRepositoryImplTest {
                         ),
                 )
             tokenStorage.setAuthToken("test-token")
-            coEvery {
-                mediaApi.getLibraryContent(any(), any(), any(), any(), any())
-            } returns response
+            coEvery { librarySyncDao.getByLibraryKeyOnce("1") } returns null
+            coEvery { mediaApi.getLibraryContent(any(), any(), any(), any(), any()) } returns response
+            coEvery { artistDao.insertAll(any()) } just runs
+            coEvery { librarySyncDao.insert(any()) } just runs
 
-            val result = repository.getArtists("1")
+            val result = repository.syncLibrary("1", "server-123")
 
             assertTrue(result.isSuccess)
-            val artists = result.getOrNull()!!
-            assertEquals(1, artists.size)
-            assertEquals("Artist One", artists[0].name)
-            assertEquals(5, artists[0].albumCount)
+            coVerify { artistDao.insertAll(any()) }
+            coVerify { librarySyncDao.insert(any()) }
         }
 
     @Test
-    fun `getArtists uses childCount for albumCount not leafCount`() =
+    fun `syncLibrary skips API when already synced`() =
         runTest {
-            val response =
-                MediaContainerResponse(
-                    mediaContainer =
-                        MediaContainer(
-                            size = 1,
-                            metadata =
-                                listOf(
-                                    MetadataDto(
-                                        ratingKey = "artist-1",
-                                        key = "/library/artist-1",
-                                        title = "Artist With Many Tracks",
-                                        type = "artist",
-                                        thumb = null,
-                                        art = null,
-                                        parentTitle = null,
-                                        grandparentTitle = null,
-                                        year = null,
-                                        duration = null,
-                                        index = null,
-                                        childCount = 3,
-                                        leafCount = 150,
-                                        media = null,
-                                    ),
-                                ),
-                        ),
+            coEvery { librarySyncDao.getByLibraryKeyOnce("1") } returns
+                LibrarySyncEntity(
+                    libraryKey = "1",
+                    serverId = "server-123",
+                    lastSyncedAt = System.currentTimeMillis(),
+                    artistCount = 10,
                 )
-            tokenStorage.setAuthToken("test-token")
-            coEvery {
-                mediaApi.getLibraryContent(any(), any(), any(), any(), any())
-            } returns response
 
-            val result = repository.getArtists("2")
+            val result = repository.syncLibrary("1", "server-123")
 
             assertTrue(result.isSuccess)
-            assertEquals(3, result.getOrNull()!![0].albumCount)
+            coVerify(exactly = 0) { mediaApi.getLibraryContent(any(), any(), any(), any(), any()) }
         }
 
     @Test
@@ -266,7 +293,39 @@ class LibraryRepositoryImplTest {
         }
 
     @Test
-    fun `getAlbumTracks maps metadata to tracks`() =
+    fun `getAlbumTracks returns flow from DAO`() =
+        runTest {
+            val trackEntities =
+                listOf(
+                    TrackEntity(
+                        id = "track-1",
+                        albumId = "album-123",
+                        title = "Track Title",
+                        artistName = "Artist Name",
+                        albumTitle = "Album Title",
+                        duration = 180000L,
+                        trackNumber = 1,
+                        thumbUri = "/thumb",
+                        mediaKey = "/library/parts/1/file.mp3",
+                    ),
+                )
+            every { trackDao.getByAlbumId("album-123") } returns flowOf(trackEntities)
+
+            repository.getAlbumTracks("album-123").test {
+                val tracks = awaitItem()
+                assertEquals(1, tracks.size)
+                assertEquals("Track Title", tracks[0].title)
+                assertEquals("Artist Name", tracks[0].artistName)
+                assertEquals("Album Title", tracks[0].albumTitle)
+                assertEquals(180000L, tracks[0].duration)
+                assertEquals(1, tracks[0].trackNumber)
+                assertEquals("/library/parts/1/file.mp3", tracks[0].mediaKey)
+                awaitComplete()
+            }
+        }
+
+    @Test
+    fun `syncAlbumTracks fetches from API when cache is empty`() =
         runTest {
             val response =
                 MediaContainerResponse(
@@ -308,20 +367,13 @@ class LibraryRepositoryImplTest {
                         ),
                 )
             tokenStorage.setAuthToken("test-token")
-            coEvery {
-                mediaApi.getChildren(any(), any(), any(), any())
-            } returns response
+            coEvery { trackDao.getByAlbumIdOnce("album-123") } returns emptyList()
+            coEvery { mediaApi.getChildren(any(), any(), any(), any()) } returns response
+            coEvery { trackDao.insertAll(any()) } just runs
 
-            val result = repository.getAlbumTracks("album-123")
+            val result = repository.syncAlbumTracks("album-123")
 
             assertTrue(result.isSuccess)
-            val tracks = result.getOrNull()!!
-            assertEquals(1, tracks.size)
-            assertEquals("Track Title", tracks[0].title)
-            assertEquals("Artist Name", tracks[0].artistName)
-            assertEquals("Album Title", tracks[0].albumTitle)
-            assertEquals(180000L, tracks[0].duration)
-            assertEquals(1, tracks[0].trackNumber)
-            assertEquals("/library/parts/1/file.mp3", tracks[0].mediaKey)
+            coVerify { trackDao.insertAll(any()) }
         }
 }

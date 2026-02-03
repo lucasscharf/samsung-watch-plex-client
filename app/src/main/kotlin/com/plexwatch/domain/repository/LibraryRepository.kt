@@ -11,11 +11,31 @@ interface LibraryRepository {
 
     suspend fun refreshLibraries(serverId: String): Result<List<PlexLibrary>>
 
-    suspend fun getArtists(libraryKey: String): Result<List<Artist>>
+    fun getArtists(libraryKey: String): Flow<List<Artist>>
 
-    suspend fun getAlbums(artistId: String): Result<List<Album>>
+    fun getAlbums(artistId: String): Flow<List<Album>>
 
-    suspend fun getAlbumTracks(albumId: String): Result<List<Track>>
+    fun getAlbumTracks(albumId: String): Flow<List<Track>>
+
+    suspend fun isLibrarySynced(libraryKey: String): Boolean
+
+    suspend fun syncLibrary(
+        libraryKey: String,
+        serverId: String,
+    ): Result<Unit>
+
+    suspend fun syncArtistAlbums(artistId: String): Result<Unit>
+
+    suspend fun syncAlbumTracks(albumId: String): Result<Unit>
+
+    suspend fun refreshLibraryCache(
+        libraryKey: String,
+        serverId: String,
+    ): Result<Unit>
+
+    suspend fun refreshArtistAlbumsCache(artistId: String): Result<Unit>
+
+    suspend fun refreshAlbumTracksCache(albumId: String): Result<Unit>
 
     suspend fun getStreamUrl(track: Track): String
 }

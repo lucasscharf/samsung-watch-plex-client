@@ -65,5 +65,17 @@ Dado os contextos, o resultado é algo totalmente tolerável ;D
 Falar sobre dores:
 * falta de padronização no código
 * IA parece que esquece coisas
-* riscos de segurança porque o claude vai pesquisando coisas por aí e pode receber alguma instrução maliciosa
 
+# Dia 4
+Três sensações fortes: 
+* estou num hackaton. É rápido entregar algo novo, porém é difícil de manter algo bom. Conforme estou adicionando novas funcionalidades, estou batendo mais rapidamente nos limites de tokens.
+* A tentação para meter a mão resolver umas tretas de timeouts é grande.
+* O claude esquece de fazer teste (lembra alguns devs)
+* Tentei mandei implementar as regras pra pegar a contagem de álbuns/música de novo. Não avançou. Aceitei derrota provisória.
+* Desisti ae mandei implementar mecanismo de salvamento do servidor: 35 arquivos alterados/adicionados sendo que apenas 1 foi de teste
+* Ele ignorou as instruções feitas no claude.md
+**TESTES OBRIGATÓRIOS:** Todo código novo ou modificado deve incluir testes unitários ou de integração conforme a necessidade.
+
+
+Falar sobre
+* riscos de segurança porque o claude vai pesquisando coisas por aí e pode receber alguma instrução maliciosa

@@ -6,6 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 PlexWatch - A Plex music client for Samsung Galaxy Watch (Wear OS). Allows users to browse their Plex music library and stream audio directly on their watch.
 
+## Project Specification
+
+Consulte os arquivos em `project-spec/` para entender os requisitos e decisões arquiteturais do projeto:
+- `00_CONTEXT.md` - Contexto do projeto
+- `01_OBJECTIVE.md` - Objetivos
+- `02_SCOPE.md` - Escopo
+- `03_ARCHITECTURE.md` - Arquitetura
+- `04_TECH_STACK.md` - Stack tecnológica
+- `06_FUNCTIONAL_REQUIREMENTS.md` - Requisitos funcionais
+
 ## Build Commands
 
 ```bash

@@ -41,7 +41,7 @@ import com.plexwatch.domain.model.PlexLibrary
 
 @Composable
 fun LibrariesScreen(
-    onLibraryClick: (libraryKey: String) -> Unit,
+    onLibraryClick: (libraryKey: String, serverId: String) -> Unit,
     viewModel: LibrariesViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -60,6 +60,7 @@ fun LibrariesScreen(
             is LibrariesUiState.Success -> {
                 LibrariesContent(
                     libraries = state.libraries,
+                    serverId = viewModel.serverId,
                     onLibraryClick = onLibraryClick,
                     listState = listState,
                     focusRequester = focusRequester,
@@ -103,7 +104,8 @@ private fun LoadingContent() {
 @Composable
 private fun LibrariesContent(
     libraries: List<PlexLibrary>,
-    onLibraryClick: (libraryKey: String) -> Unit,
+    serverId: String,
+    onLibraryClick: (libraryKey: String, serverId: String) -> Unit,
     listState: androidx.wear.compose.foundation.lazy.ScalingLazyListState,
     focusRequester: FocusRequester,
 ) {
@@ -148,7 +150,7 @@ private fun LibrariesContent(
             items(musicLibraries) { library ->
                 LibraryChip(
                     library = library,
-                    onClick = { onLibraryClick(library.key) },
+                    onClick = { onLibraryClick(library.key, serverId) },
                 )
             }
         }

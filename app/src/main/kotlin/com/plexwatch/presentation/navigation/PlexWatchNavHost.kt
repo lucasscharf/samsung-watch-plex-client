@@ -58,8 +58,8 @@ fun PlexWatchNavHost() {
 
         composable(Screen.Libraries.route) {
             LibrariesScreen(
-                onLibraryClick = { libraryKey ->
-                    navController.navigate(Screen.Artists.createRoute(libraryKey))
+                onLibraryClick = { libraryKey, serverId ->
+                    navController.navigate(Screen.Artists.createRoute(libraryKey, serverId))
                 },
             )
         }

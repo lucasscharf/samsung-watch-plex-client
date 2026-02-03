@@ -7,6 +7,7 @@ sealed interface AlbumsUiState {
 
     data class Success(
         val albums: List<Album>,
+        val isRefreshing: Boolean = false,
     ) : AlbumsUiState
 
     data class Error(

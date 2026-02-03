@@ -7,6 +7,7 @@ sealed interface ArtistsUiState {
 
     data class Success(
         val artists: List<Artist>,
+        val isRefreshing: Boolean = false,
     ) : ArtistsUiState
 
     data class Error(

@@ -32,7 +32,7 @@ export ANDROID_HOME=/path/to/Android/Sdk
 
 ```bash
 # Create emulated WearOS
-${ANDROID_SDK_ROOT}/Sdk/emulator/emulator -avd WearOS 
+${ANDROID_SDK_ROOT}/emulator/emulator -avd WearOS 
 
 # Install APK
 adb install app/build/outputs/apk/debug/app-debug.apk

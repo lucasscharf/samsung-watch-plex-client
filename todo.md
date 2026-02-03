@@ -87,15 +87,13 @@
 
 ## Próximos Passos 🚀
 
-Adicionar no readme os comandos para fazer pair e connect para debugar no dispositivo
-
 ### Fase 9: Cache e Persistência Local
 - [ ] Criar banco de dados local (Room) para cache de artistas/álbuns/músicas
 - [ ] Implementar sincronização inicial da biblioteca
 - [ ] Adicionar botão "Atualizar biblioteca" para refresh manual do cache
 - [ ] Usar dados do cache para navegação offline dos metadados
 
-# Fase 10
+### Fase 10
 Criar um novo logo
 
 

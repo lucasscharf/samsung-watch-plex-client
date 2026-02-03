@@ -7,6 +7,7 @@ sealed interface TracksUiState {
 
     data class Success(
         val tracks: List<Track>,
+        val isRefreshing: Boolean = false,
     ) : TracksUiState
 
     data class Error(

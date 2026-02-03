@@ -11,8 +11,11 @@ sealed class Screen(val route: String) {
         fun createRoute(serverId: String) = "libraries/$serverId"
     }
 
-    data object Artists : Screen("artists/{libraryKey}") {
-        fun createRoute(libraryKey: String) = "artists/$libraryKey"
+    data object Artists : Screen("artists/{libraryKey}/{serverId}") {
+        fun createRoute(
+            libraryKey: String,
+            serverId: String,
+        ) = "artists/$libraryKey/$serverId"
     }
 
     data object Albums : Screen("albums/{artistId}") {

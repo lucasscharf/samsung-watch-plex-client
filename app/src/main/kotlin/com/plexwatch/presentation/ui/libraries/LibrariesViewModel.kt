@@ -20,7 +20,7 @@ class LibrariesViewModel
         private val getLibrariesUseCase: GetLibrariesUseCase,
         savedStateHandle: SavedStateHandle,
     ) : ViewModel() {
-        private val serverId: String = checkNotNull(savedStateHandle["serverId"])
+        val serverId: String = checkNotNull(savedStateHandle["serverId"])
 
         private val _uiState = MutableStateFlow<LibrariesUiState>(LibrariesUiState.Loading)
         val uiState: StateFlow<LibrariesUiState> = _uiState.asStateFlow()
