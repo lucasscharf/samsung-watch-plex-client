@@ -31,9 +31,8 @@ export ANDROID_HOME=/path/to/Android/Sdk
 5. Install and run:
 
 ```bash
-export ANDROID_HOME=/home/aleatorio/Android/Sdk && export ANDROID_SDK_ROOT=/home/aleatorio/Android/Sdk 
-
-/home/aleatorio/Android/Sdk/emulator/emulator -avd WearOS 
+# Create emulated WearOS
+${ANDROID_SDK_ROOT}/Sdk/emulator/emulator -avd WearOS 
 
 # Install APK
 adb install app/build/outputs/apk/debug/app-debug.apk
