@@ -66,16 +66,29 @@ Falar sobre dores:
 * falta de padronização no código
 * IA parece que esquece coisas
 
-# Dia 4
-Três sensações fortes: 
-* estou num hackaton. É rápido entregar algo novo, porém é difícil de manter algo bom. Conforme estou adicionando novas funcionalidades, estou batendo mais rapidamente nos limites de tokens.
-* A tentação para meter a mão resolver umas tretas de timeouts é grande.
-* O claude esquece de fazer teste (lembra alguns devs)
-* Tentei mandei implementar as regras pra pegar a contagem de álbuns/música de novo. Não avançou. Aceitei derrota provisória.
-* Desisti ae mandei implementar mecanismo de salvamento do servidor: 35 arquivos alterados/adicionados sendo que apenas 1 foi de teste
-* Ele ignorou as instruções feitas no claude.md
-**TESTES OBRIGATÓRIOS:** Todo código novo ou modificado deve incluir testes unitários ou de integração conforme a necessidade.
+# Dia 4 (02/02/2026)
 
+## Sensação de hackathon
+Estou num hackathon permanente. É rápido entregar algo novo, porém é difícil manter algo bom. Conforme adiciono funcionalidades, bato mais rápido nos limites de tokens. A tentação de meter a mão e resolver uns bugs de timeout é grande.
 
-Falar sobre
-* riscos de segurança porque o claude vai pesquisando coisas por aí e pode receber alguma instrução maliciosa
+## O Claude esquece de fazer testes (lembra alguns devs)
+Mandei implementar mecanismo de cache/salvamento local com Room: 35 arquivos alterados/adicionados sendo que apenas 1 foi de teste. Ele ignorou completamente a instrução do CLAUDE.md sobre testes obrigatórios.
+
+Quando questionei, descobri algo interessante: o CLAUDE.md **nunca teve instrução para seguir os arquivos de especificação** em `project-spec/`. A única menção era ao arquivo de licença. Ou seja, toda aquela documentação que criei no dia 1 estava sendo ignorada.
+
+Adicionei a seção para referenciar o project-spec. Veremos se melhora.
+
+## Bug de Foreign Key
+Ao rodar o app, deu erro `Foreign key constraint failed (code 787)`. O Claude identificou rapidamente: no `LibraryRepositoryImpl`, os artistas estavam sendo inseridos ANTES do `LibrarySyncEntity`, mas a tabela de artistas tem FK para essa tabela pai.
+
+A correção foi simples (inverter a ordem de inserção), mas o bug só existiu porque o Claude não seguiu a lógica básica de inserir pai antes de filho. E claro, não criou teste para validar isso.
+
+## Lições do dia
+* **Documentação não lida = documentação inútil.** Não adianta criar specs bonitas se o CLAUDE.md não aponta para elas
+* **Verificar histórico do CLAUDE.md** é útil para entender o que a IA "sabe" vs o que você acha que ela sabe
+* **Testes continuam sendo ignorados** mesmo com instrução explícita. Preciso ser mais assertivo ou aceitar que vou ter que cobrar manualmente
+
+## Riscos identificados
+* Segurança: o Claude pesquisa na web e pode receber instruções maliciosas (prompt injection via documentação externa)
+* Qualidade: sem testes, bugs como o FK passam despercebidos até runtime
+* Manutenção: código cresce rápido mas sem cobertura de teste, refatorar vira roleta russa
