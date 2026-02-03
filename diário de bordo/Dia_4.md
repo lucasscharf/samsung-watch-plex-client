@@ -16,4 +16,4 @@ Minha percepção sobre as instruções CLAUDE.md mudou. Não é não são garan
 
 Terceiro, o risco de segurança é real. O Claude pesquisa na web para implementar coisas. O que impede documentação maliciosa de injetar instruções? Prompt injection/IA poisoning é algo que não vejo ninguém discutindo. Além disso, será que é possível usar técnicas de esteganografia que passam desapercebido por um ser humano mas é capturado pelas LLMs? 
 
-A nave continua voando, mas os instrumentos de navegação precisam de calibragem.
+Muitas perguntas no dia de hoje e poucas respostas boas.
