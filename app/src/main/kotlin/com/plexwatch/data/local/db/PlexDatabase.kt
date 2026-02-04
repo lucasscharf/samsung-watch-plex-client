@@ -18,7 +18,7 @@ import com.plexwatch.data.local.db.entity.TrackEntity
         AlbumEntity::class,
         TrackEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class PlexDatabase : RoomDatabase() {

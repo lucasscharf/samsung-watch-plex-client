@@ -2,6 +2,7 @@ package com.plexwatch.di
 
 import android.content.Context
 import androidx.room.Room
+import com.plexwatch.data.local.db.MIGRATION_1_2
 import com.plexwatch.data.local.db.PlexDatabase
 import com.plexwatch.data.local.db.dao.AlbumDao
 import com.plexwatch.data.local.db.dao.ArtistDao
@@ -28,6 +29,7 @@ object DatabaseModule {
                 PlexDatabase::class.java,
                 "plex_database",
             )
+            .addMigrations(MIGRATION_1_2)
             .fallbackToDestructiveMigration()
             .build()
 

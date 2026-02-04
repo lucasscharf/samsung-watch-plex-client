@@ -55,6 +55,7 @@ fun TrackEntity.toDomain(): Track =
         trackNumber = trackNumber,
         thumbUri = thumbUri,
         mediaKey = mediaKey,
+        playCount = playCount,
     )
 
 fun Track.toEntity(albumId: String): TrackEntity =

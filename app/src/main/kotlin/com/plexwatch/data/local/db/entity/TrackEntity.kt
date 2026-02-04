@@ -28,4 +28,5 @@ data class TrackEntity(
     val trackNumber: Int,
     val thumbUri: String?,
     val mediaKey: String,
+    val playCount: Int = 0,
 )

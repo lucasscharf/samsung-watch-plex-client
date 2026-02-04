@@ -23,4 +23,7 @@ interface TrackDao {
 
     @Query("DELETE FROM tracks WHERE albumId = :albumId")
     suspend fun deleteByAlbumId(albumId: String)
+
+    @Query("UPDATE tracks SET playCount = playCount + 1 WHERE id = :trackId")
+    suspend fun incrementPlayCount(trackId: String)
 }

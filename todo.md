@@ -88,12 +88,12 @@
 - [x] Implementar sincronização inicial da biblioteca
 - [x] Adicionar botão "Atualizar biblioteca" para refresh manual do cache
 - [x] Usar dados do cache para navegação offline dos metadados
+
+### Fase 10
+- [ ] Criar um novo logo
 ---
 
 ## Próximos Passos 🚀
-
-### Fase 10
-Criar um novo logo
 
 ### Fase 11: Contador de Reproduções
 - [ ] Adicionar campo `playCount: Int` na entidade `TrackEntity` (Room)
